@@ -1,0 +1,62 @@
+<html lang="{lang}"{html,admin}>
+    <head> {admin_head} </head>
+    <body data-cat="{category_page}" id="smtp_body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-2 py-2 sidenav">
+                {admin_nav}
+                {admin_footer}
+            </div>
+            <div class="col-12 col-lg-10 main_content min_height">
+                <form name="edit_create">
+                    <div class="row mb-3">
+                        <div class="col-12 col-lg-5 mb-3">
+
+                            <label for="lbl_host" class="form-label">ホスト名</label>
+                            <input type="text" name="host" value="{form_host}" class="form-control form-control-sm　mb-3" id="lbl_host" required>
+
+                            <label for="lbl_port" class="form-label">SMTPポート</label>
+                            <input type="text" name="port" value="{form_port}" class="form-control form-control-sm mb-3" id="lbl_port" required>
+
+                            <label for="lbl_encrypt" class="form-label">暗号化</label>
+                            <input type="text" name="encrypt" value="{form_encrypt}" class="form-control form-control-sm mb-3" id="lbl_encrypt" required>
+
+                            <label for="lbl_encoding" class="form-label">エンコード</label>
+                            <input type="text" name="encoding" value="{form_encoding}" class="form-control form-control-sm mb-3" id="lbl_encoding" required>
+
+                            <label for="lbl_charset" class="form-label">文字コード</label>
+                            <input type="text" name="charset" value="{form_charset}" class="form-control form-control-sm mb-3" id="lbl_charset" required>
+
+                            <label for="lbl_user" class="form-label">アカウント</label>
+                            <input type="text" name="user" value="{form_user}" class="form-control form-control-sm mb-3" id="lbl_user" required>
+
+                            <label for="lbl_passwd" class="form-label">パスワード</label>
+                            <input type="text" name="passwd" value="{form_passwd}" class="form-control form-control-sm mb-3" id="lbl_passwd" required>
+
+                            <label for="lbl_email" class="form-label">送信メールアドレス</label>
+                            <input type="text" name="email" value="{form_email}" class="form-control form-control-sm mb-3" id="lbl_email" required>
+
+                            <label for="lbl_from_name" class="form-label">送信者名</label>
+                            <input type="text" name="from_name" value="{form_from_name}" class="form-control form-control-sm mb-3" id="lbl_from_name">
+                        </div>
+                        <div class="col-12 col-lg-7 mb-3">
+                            <label for="lbl_from_name" class="form-label">お問合せ概要</label>
+                            <textarea class="form-control form-control-sm" name="html" contenteditable="true">{form_html}</textarea>
+
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center mb-3 bg-border p-2 rounded">
+                        <div>
+                            <input type="hidden" name="table" value="smtp">
+                            <input type="hidden" name="id" value="{form_id}" id="edit_record_id">
+                            <button type="button" class="btn btn-sm btn-primary" id="edit_create">保存</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

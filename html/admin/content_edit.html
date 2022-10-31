@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="{lang}"{html,admin}>
+    <head> {admin_head} </head>
+    <body data-cat="{category_page}" id="content_body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-lg-2 py-2 sidenav"> {admin_nav} {admin_footer} </div>
+                <div class="col-12 col-lg-10 main_content min_height">
+                    <form name="edit_create">
+                        <div class="row">
+                            <div class="col-12 col-lg-7">
+                                <div class="row"> {public_content_url} <div class="col-12 col-lg-2 mb-3">
+                                        <label for="lbl_release_date"
+                                            class="form-label">アクセス数</label>
+                                        <p class="m-0"
+                                            id="access_count">{form_access}</p>
+                                    </div>
+                                    <div class="col-12 col-lg-3 mb-3">
+                                        <label for="lbl_category"
+                                            class="form-label">カテゴリー</label>
+                                        <select class="form-control form-control-sm"
+                                            name="category"
+                                            id="lbl_category"
+                                            required>{form_category_options}</select>
+                                    </div>
+                                    <div class="col-12 col-lg-4 mb-3">
+                                        <label for="lbl_release_date"
+                                            class="form-label">公開日</label>
+                                        <input type="text"
+                                            name="release_date"
+                                            data-time="true"
+                                            class="flatpickr form-control form-control-sm"
+                                            value="{form_release_date}"
+                                            id="lbl_release_date">
+                                    </div>
+                                    <div class="col-12 col-lg-3 mb-3">
+                                        <label for="lbl_publishing"
+                                            class="form-label">出稿</label>
+                                        <div id="lbl_publishing">
+                                            <div class="btn-group"> {form_publishing_radio} </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-3 mb-3">
+                                        <label for="lbl_author"
+                                            class="form-label">著者</label>
+                                        <select class="form-control form-control-sm"
+                                            name="author"
+                                            id="lbl_author"
+                                            required>{form_author_options}</select>
+                                    </div>
+                                    <div class="col-12 col-lg-9 mb-3">
+                                        <label for="lbl_page"
+                                            class="form-label">ページ名 (半角英数字 100文字まで)</label>
+                                        <input type="text"
+                                            name="page"
+                                            value="{form_page}"
+                                            class="form-control form-control-sm unslash"
+                                            id="lbl_page"
+                                            required>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="lbl_title"
+                                            class="form-label">ページ見出し (H1)</label>
+                                        <input type="text"
+                                            name="title"
+                                            value="{form_title}"
+                                            class="form-control form-control-sm"
+                                            id="lbl_title"
+                                            required>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="lbl_description"
+                                            class="form-label">HTML 概要説明</label>
+                                        <textarea class="form-control form-control-sm mb-3"
+                                            name="description"
+                                            id="lbl_description">{form_description}</textarea>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <div class="row">
+                                            <div class="col-12 col-lg-6 mb-3">
+                                                <label for="banner_upload"
+                                                    class="form-label">バナー<br>
+                                                    <span class="text-danger"> Size (W:600px) Limited To 1024 KB </span>
+                                                </label>
+                                                <input type="file"
+                                                    name="banner[]"
+                                                    class="form-control form-control-sm fileuplad"
+                                                    id="banner_upload"
+                                                    accept="image/*" data-area="banner_files">
+                                                <input type="hidden"
+                                                    name="thumbnail"
+                                                    value="{form_banner}"
+                                                    id="banner">
+                                                <div id="banner_files" class="mt-1"></div>
+                                                <div id="banner_upload_area">{form_banner_img}</div>
+                                            </div>
+                                            <div class="col-12 col-lg-6 mb-3">
+                                                <label for="lbl_banner_link"
+                                                    class="form-label">バナーリンク先</label>
+                                                <input type="text"
+                                                    name="banner_link"
+                                                    value="{form_banner_link}"
+                                                    class="form-control form-control-sm mb-3"
+                                                    id="lbl_banner_link">
+                                                <label for="lbl_banner_timer"
+                                                    class="form-label">表示タイマー(秒)</label>
+                                                <select class="form-control form-control-sm"
+                                                    name="banner_timer"
+                                                    id="lbl_banner_timer">{form_banner_timer_options}</select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-5">
+                                <label for="thumbnail_upload"
+                                    class="form-label">サムネイル<br>
+                                    <span class="text-danger"> Size (W:1200px H:800px) Limited To 1024 KB </span>
+                                </label>
+                                <input type="file"
+                                    name="thumbnail[]"
+                                    class="form-control form-control-sm fileuplad"
+                                    id="thumbnail_upload"
+                                    accept="image/*" data-area="thumbnail_files">
+                                <input type="hidden"
+                                    name="thumbnail"
+                                    value="{form_thumbnail}"
+                                    id="thumbnail">
+                                <div id="thumbnail_files"
+                                    class="mt-1"></div>
+                                <div id="thumbnail_upload_area">{form_thumbnail_img}</div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3 bg-light p-2">
+                            <div>
+                                <a href="{back_url}"
+                                    class="btn btn-sm btn-secondary me-2">戻る</a>
+                                <input type="hidden"
+                                    name="table"
+                                    value="content">
+                                <input type="hidden"
+                                    name="id"
+                                    value="{form_id}"
+                                    id="edit_record_id">
+                                <button type="button"
+                                    class="btn btn-sm btn-primary"
+                                    id="edit_create">保存</button>
+                            </div> {form_delete}
+                        </div>
+                        <label for="lbl_html"
+                            class="form-label">コンテンツ本文</label>
+                        <p style="font-size:.8rem;">本文内に <input type="text" value="{table_of_contents}" onclick="this.select(0, this.value.length)" readonly class="form-control form-control-sm rep_input"> をセットすると目次が表示されます。(目次は「h2」タグを自動的に探します「h3タグはサブタイトルになります」)</p>
+                        <textarea class="form-control form-control-sm" name="html" contenteditable="true">{form_html}</textarea>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

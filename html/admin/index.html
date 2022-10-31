@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="{lang}"{html,admin}>
+
+<head>
+    {admin_head}
+</head>
+
+<body id="index_body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-2 py-2 sidenav">
+                {admin_nav}
+                {admin_footer}
+            </div>
+            <div class="col-12 col-lg-10 main_content min_height">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card mb-3">
+                            <h3>トータルアクセス数</h3>
+                            <p class="fs-1 text-center">{totalNumber}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card mb-3">
+                            <h3>アクセス数の前月比</h3>
+                            <p class="fs-1 text-center">{monthToMonthAnalysis}<span class="ms-1 fs-5">%</span></p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="card mb-3 cal">
+                            <h3>曜日別アクセス数 30日単位</h3>
+                            <table class="table analysis">
+                                {dayOfTheWeekAnalysis}
+                            </table>
+                        </div>
+                        <div class="card mb-3">
+                            <h3>アクセスランキング</h3>
+                            {top10List}
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="card mb-3 cal">
+                            <h3>時間別アクセス数 30日単位</h3>
+                            <table class="table analysis">
+                                {hourlyAnalysis}
+                            </table>
+                        </div>
+                        <div class="card mb-3">
+                            <h3>注意事項</h3>
+                            <div class="px-3 pb-3">
+                                <ul>
+                                    <li>コンテンツのページ名はアクセス解析に属していますのでアクセス数がある場合は、<span class="text-danger">ページ名の変更はできませんのでご注意ください。</span></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card mb-3">
+                            <h3>APIのご利用</h3>
+                            <div class="px-3 pb-3">
+                                <ul>
+                                    <li>（コンテンツ）<br>{url}api/get/content/ページ名</li>
+                                    <li>（カテゴリー）<br>{url}api/get/category/ページ名/10（取得コンテンツ数）</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="{lang}"{html,admin}>
+<head>
+    {admin_head}
+</head>
+<body class="signin">
+    <div class="container">
+        <div class="d-flex justify-content-center align-items-center _100">
+            <div class="row bg-white rounded shadow">
+                <div class="col-lg-6 col-xl-5 d-flex align-items-center justify-content-center" style="width: 286px;">
+                    <img src="{logo}" class="w-75">
+                </div>
+                <div class="col-lg-6 col-xl-7 col-xs-12 col-sm-12 p-5">
+                    <form autocomplete="off" name="login">
+                        <label for="" class="">アカウント</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bre_0"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input type="text" class="form-control" name="account" required="" pattern="^[0-9A-Za-z]+$" placeholder="Enter Your Account">
+                        </div>
+                        <label for="" class="">パスワード</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bre_0"><i class="fas fa-unlock-alt"></i></span>
+                            </div>
+                            <input type="password" class="form-control" required="" autocomplete="new-password" name="passwd" placeholder="Enter Your Password">
+                            <div class="input-group-append">
+                                <span class="input-group-text brs_0"><i class="fas fa-eye-slash eye_toggle"></i></span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary mt-5 mx-auto d-block" id="btn_submit">ログイン</button>
+                        <input type="hidden" name="token" value="{token}">
+                        <input type="hidden" name="redir_url" value="{redir_url}">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
