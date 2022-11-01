@@ -5,9 +5,20 @@
 
 
 CKEDITOR.editorConfig = function(config) {
-    config.toolbarGroups = [{
-            name: 'clipboard',
-            groups: ['clipboard', 'undo']
+    config.toolbarGroups = [
+        {
+            name: 'basicstyles',
+            groups: ['basicstyles', 'cleanup']
+        },
+        {
+            name: 'paragraph',
+            groups: ['list', 'blocks', 'align', 'bidi']
+        },
+        {
+            name: 'styles'
+        },
+        {
+            name: 'colors'
         },
         {
             name: 'editing',
@@ -32,21 +43,6 @@ CKEDITOR.editorConfig = function(config) {
         {
             name: 'others'
         },
-        '/',
-        {
-            name: 'basicstyles',
-            groups: ['basicstyles', 'cleanup']
-        },
-        {
-            name: 'paragraph',
-            groups: ['list', 'blocks', 'align', 'bidi']
-        },
-        {
-            name: 'styles'
-        },
-        {
-            name: 'colors'
-        }
     ];
 
     // Remove some buttons provided by the standard plugins, which are

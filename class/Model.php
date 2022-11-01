@@ -397,9 +397,8 @@ class Model
                 $form['form_category_name'] = $content[0]->category_name;
                 $form['form_delete'] = '<button type="button" class="btn btn-sm btn-danger" id="delete_edit_record" data-id="'.$this->replace['id'].'" data-table="content">削除</button>';
                 $form['public_content_url'] = '
-                <div class="col-12 col-lg-3 mb-3">
-                    <a href="'.URL.$form['form_category_name'].'/'.$form['form_page'].'" class="btn btn-sm btn-secondary" target="_blank">公開コンテンツ</a>
-                </div>';
+                <label for="" class="form-label">公開コンテンツ</label>
+                <p class="m-0"><a href="'.URL.$form['form_category_name'].'/'.$form['form_page'].'" class="btn btn-sm btn-secondary" target="_blank">ページ確認</a></p>';
             }
         }
         $LVL_PUBLISHING = [0 => '非公開', 1 => '公開'];
