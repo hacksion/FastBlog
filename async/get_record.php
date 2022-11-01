@@ -2,6 +2,9 @@
 require('../init/config.php');
 
 try {
+    if(!isset($_POST['id']) || !isset($_POST['table'])){
+        throw new Exception('Error');
+    }
     $Auth = new TM\Auth('array');
     $login = $Auth->checkExec();
     if ($login['result'] == 0) throw new Exception($login['msg']);

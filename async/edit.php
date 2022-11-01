@@ -1,11 +1,15 @@
 <?php
 require('../init/config.php');
-$method = isset($_POST['table']) ? $_POST['table']:'';
-$lang = isset($_POST['html_lang']) ? $_POST['html_lang']:'en';
-$Edit = new TM\Edit($lang);
-if($method && method_exists($Edit, $method)){
+$method = $_POST['table'] ?? '';
+$lang = $_POST['html_lang'] ?? '';
+if($method && $lang){
     try {
-        $Edit->$method();
+        $Edit = new TM\Edit($lang);
+        if(method_exists($Edit, $method)){
+            $Edit->$method();
+        }else{
+            throw new Exception('Error');
+        }
     } catch (Exception $e) {
         echo '{"result":0,"msg":"'. $e->getMessage() . '","class":"false!"}';
     }

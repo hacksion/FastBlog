@@ -1,8 +1,8 @@
 <?php
 require('../init/config.php');
 try {
-    $method = $_POST['method'];
-    $table = $_POST['table'];
+    $method = $_POST['method'] ?? '';
+    $table = $_POST['table'] ?? '';
     if($method && $table){
         $DB = new TM\DB;
         if($method == 'sort'){

@@ -1,7 +1,7 @@
 <?php
 require('../init/config.php');
 try {
-    if ($_SESSION['csrf_token'] == $_POST['token']) {
+    if (isset($_POST['token']) && $_SESSION['csrf_token'] == $_POST['token']) {
         echo (new TM\Auth)->loginExec($_POST['account'], $_POST['passwd'], $_POST['redir_url']);
         exit;
     }
