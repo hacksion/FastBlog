@@ -63,7 +63,7 @@ CKEDITOR.editorConfig = function(config) {
     //タグの要素を消さないようにする　デフォルトはセキュリティー上消しているもよう
     //config.allowedContent = true;
 
-    config.height = '30em';
+    //config.height = '30em';
     config.autoParagraph = false;
     config.fillEmptyBlocks = false;
     config.image_previewText = ' ';

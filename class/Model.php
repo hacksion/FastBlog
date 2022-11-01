@@ -454,6 +454,7 @@ class Model
     public function admin_setting()
     {
         $this->status200();
+        array_unshift($this->replace['add_script'], URL.'plugin/ckeditor/ckeditor.js');
         
         foreach($this->setting as $key => $value){
             if($key == 'lang'){

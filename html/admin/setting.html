@@ -85,13 +85,14 @@
                                     <input type="color" name="f_color" value="{form_f_color}" class="form-control form-control-sm mb-3 pe-2" id="lbl_f_color">
                                 </div>
                                 <div class="col-12">
-                                    <label for="lbl_footer_text" class="form-label">フッターテキスト</label>
-                                    <textarea class="form-control form-control-sm mb-3" name="footer_text" id="lbl_footer_text">{form_footer_text}</textarea>
-                                </div>
-                                <div class="col-12">
                                     <label for="lbl_copyright_url" class="form-label">フッターコピーライトURL</label>
                                     <input type="text" name="copyright_url" value="{form_copyright_url}" class="form-control form-control-sm mb-3" id="lbl_copyright_url">
                                 </div>
+                                <div class="col-12">
+                                    <label for="footer_text" class="form-label">フッターテキスト</label>
+                                    <textarea class="form-control form-control-sm mb-3" name="footer_text" id="footer_text" contenteditable="true">{form_footer_text}</textarea>
+                                </div>
+                                
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">

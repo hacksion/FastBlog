@@ -113,8 +113,15 @@ const editCreate = () => {
                 let fdo = new FormData(forms);
                 fdo.append("table", table);
                 fdo.append("html_lang", document.documentElement.lang);
-                if (typeof CKEDITOR !== 'undefined'){
-                    fdo.append("html", CKEDITOR.instances.html.getData());
+                if (typeof CKEDITOR !== 'undefined') {
+
+                    let html_col = ['html', 'footer_text'];
+                    html_col.forEach(elm => {
+                        if (document.querySelector('[name = "' + elm + '"]')) {
+                            fdo.append(elm, CKEDITOR.instances[elm].getData());
+                        }
+                    });
+                    
                 }
                 asyncPost( `${asyncUrl}edit.php`, fdo, null, json => {
                     edit_create.classList.remove('d-none');
