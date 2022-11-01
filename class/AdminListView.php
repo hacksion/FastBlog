@@ -22,7 +22,7 @@ class AdminListView
     {
         $list_html = $this->records ? '':'<tr><td colspan="7" class="text-center">レコードがありません</td></tr>';
         foreach ($this->records as $value) {
-            $contents_count = $value->id > 1 ? number_format($value->content_count):'';
+            $contents_count = number_format($value->content_count);
             $list_html .= '
             <tr class="sort_target" data-id="'.$value->id.'">
                 <td class="text-nowrap align-middle">
