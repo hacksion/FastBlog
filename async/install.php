@@ -306,7 +306,7 @@ define('DATABASE_PASS', /* データベースパスワード => */ '".$_POST['DA
         'created_id' => 1,
         'modified_id' => 1,
         'sidenav_status' => 0,
-        'side_img' => 'default_side_img.svg',
+        'side_img' => NULL,
         'html' => NULL,
     ]);
 
