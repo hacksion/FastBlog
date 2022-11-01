@@ -292,11 +292,6 @@ const getAccessCookie = () => {
         fdo.append("page", page);
         xhr.open("POST", asyncUrl + 'access.php', true);
         xhr.send(fdo);
-        // xhr.onload = () => {
-        //     if(xhr.status == 200){
-        //         result = JSON.parse(xhr.responseText.replace(/(\n)/g, "\\n"));
-        //     }
-        // }
     }
 }
 ////////////////////////////////////////////////
