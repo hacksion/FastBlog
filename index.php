@@ -1,14 +1,10 @@
 <?php
 require('./init/config.php');
-$set_options = [];
 $set_options['method'] = $method = 'index';
 $set_options['category_page'] = 'index';
-
-if(isset($_SERVER['REDIRECT_URL'])){
-    $options = array_values(array_filter(explode('/', $_SERVER['REDIRECT_URL'])));
-    if (defined('CURRENT_DIR')) {
-        $options = array_values(array_diff($options, explode('/', CURRENT_DIR)));
-    }
+$options = array_values(array_filter(explode('/', $_SERVER['REQUEST_URI'])));
+$options = defined('CURRENT_DIR') ? array_values(array_diff($options, explode('/', CURRENT_DIR))):$options;
+if($options){
     if($options[0] == 'api'){
         $method = 'api';
         array_shift($options);
