@@ -202,17 +202,6 @@ class Edit
                             $i++;
                         }
                         $tag .= '</ul>';
-                        // h2 type
-                        // $rep_value = [];
-                        // $i = 0;
-                        // $tag = '<ul class="table_of_contents">';
-                        // foreach($matches[0] as $value){
-                        //     //$rep_value[$value] = '<h2 id="p_link_'.$i.'"'.($matches[1][$i] ? ' '.$matches[1][$i]:'').'>'.$matches[2][$i].'</h2>';
-                        //     $rep_value[$value] = '<h2 id="p_link_'.$i.'">'.$matches[2][$i].'</h2>';
-                        //     $tag .= '<li class="p_link" data-id="p_link_'.$i.'">'.$matches[2][$i].'</li>';
-                        //     $i++;
-                        // }
-                        // $tag .= '</ul>';
 
                         $this->DB->update(
                             $this->result['table'],
@@ -226,7 +215,7 @@ class Edit
                     //sitemap更新
                     //category content
                     $sitemap = new SitemapGenerator;
-                    $site_records = $this->DB->query('SELECT `modified`,`page` FROM `category` WHERE `id` > 1', []);
+                    $site_records = $this->DB->query('SELECT `modified`,`page` FROM `category`', []);
                     if($site_records){
                         $sitemap->add([
                             'loc'        => URL,
@@ -235,17 +224,17 @@ class Edit
                         ]);
                         foreach($site_records as $value){
                             $sitemap->add([
-                                'loc'        => URL.'category/'.$value->page,
+                                'loc'        => URL.$value->page,
                                 'lastmod'    => date('c', strtotime($value->modified)),
                                 'priority'   => '0.80'
                             ]);
                         }
                     }
-                    $site_records = $this->DB->query('SELECT `modified`,`page` FROM `content` WHERE `publishing` = 1', []);
+                    $site_records = $this->DB->query('SELECT `content`.`modified`,`content`.`page`,`category`.`page` AS `category_page` FROM `content` LEFT OUTER JOIN `category` ON (`content`.`category` = `category`.`id`) WHERE `content`.`publishing` = 1', []);
                     if($site_records){
                         foreach($site_records as $value){
                             $sitemap->add([
-                                'loc'        => URL.$value->page,
+                                'loc'        => URL.$value->category_page.'/'.$value->page,
                                 'lastmod'    => date('c', strtotime($value->modified)),
                                 'priority'   => '0.80'
                             ]);
