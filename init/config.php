@@ -11,9 +11,9 @@ mb_internal_encoding('utf-8');
 /***************** private dir ********************/
 define('PRIVATE_DIR', dirname(__DIR__).'/');
 /***************** CURRENT_DIR ********************/
-define('CURRENT_DIR', 'blog');
+define('CURRENT_DIR', trim(str_replace('index.php', '', $_SERVER['SCRIPT_NAME']), '/'));
 /***************** URL ********************/
-define('URL', (empty($_SERVER["HTTPS"]) ? "http://" : "https://").$_SERVER['HTTP_HOST'].(CURRENT_DIR ? '/'.CURRENT_DIR:'').'/');
+define('URL', (empty($_SERVER["HTTPS"]) ? "http://" : "https://").$_SERVER['HTTP_HOST'].'/'.(CURRENT_DIR ? CURRENT_DIR.'/':''));
 /***************** admin dir ********************/
 define('ADMIN_DIR', 'sys_admin');
 define('SYSTEM_NAME', 'Fast Blog');
