@@ -4,7 +4,8 @@ namespace TM;
 class Edit
 {
     private $login = [];
-    private $lang = 'en';
+    private $lang = 'ja';
+    private $url = '';
     private $DB = '';
     private $records = [];
     private $result = [
@@ -20,16 +21,18 @@ class Edit
         'edit' => 'add',
         'dir' => ''
     ];
-    public function __construct($lang)
+    public function __construct($options)
     {
         try {
             $this->login = (new Auth('array'))->checkExec();
             if ($this->login['result'] == 0) throw new \Exception($this->login['msg']);
-            $this->lang = $lang;
+            $this->lang = $options['lang'];
+            $this->url = $options['url'];
             $Post = new Post;
             $this->result['table'] = $Post->gen('table');
             $this->result['dir'] = $this->result['table'];
             $this->result['id'] = $Post->gen('id');
+
             $keys = $Post->setTable($this->result['table']);
             foreach($keys as $key => $null){
                 $this->records[$key] = $Post->gen($key, $null);
@@ -218,13 +221,13 @@ class Edit
                     $site_records = $this->DB->query('SELECT `modified`,`page` FROM `category`', []);
                     if($site_records){
                         $sitemap->add([
-                            'loc'        => URL,
+                            'loc'        => $this->url,
                             'lastmod'    => date('c'),
                             'priority'   => '1.0'
                         ]);
                         foreach($site_records as $value){
                             $sitemap->add([
-                                'loc'        => URL.$value->page,
+                                'loc'        => $this->url.$value->page,
                                 'lastmod'    => date('c', strtotime($value->modified)),
                                 'priority'   => '0.80'
                             ]);
@@ -234,7 +237,7 @@ class Edit
                     if($site_records){
                         foreach($site_records as $value){
                             $sitemap->add([
-                                'loc'        => URL.$value->category_page.'/'.$value->page,
+                                'loc'        => $this->url.$value->category_page.'/'.$value->page,
                                 'lastmod'    => date('c', strtotime($value->modified)),
                                 'priority'   => '0.80'
                             ]);

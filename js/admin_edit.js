@@ -113,6 +113,7 @@ const editCreate = () => {
                 let fdo = new FormData(forms);
                 fdo.append("table", table);
                 fdo.append("html_lang", document.documentElement.lang);
+                fdo.append("url", dataUrl);
                 if (typeof CKEDITOR !== 'undefined') {
 
                     let html_col = ['html', 'footer_text'];

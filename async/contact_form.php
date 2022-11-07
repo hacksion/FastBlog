@@ -40,15 +40,16 @@ try {
             $PHPMailer->CharSet = $smtp[0]->charset ?? 'UTF-8';
             $PHPMailer->Subject = $subject;
             $PHPMailer->Body = $mail_body;
-            $PHPMailer->addAddress($smtp[0]->email);
+            $PHPMailer->addAddress($smtp[0]->email, $name);
             $PHPMailer->send();
             $PHPMailer->clearAddresses();
             $msg = $replace['SEND_TRUE'];
             $result = 1;
 
             //送信内容確認メール
-            $PHPMailer->Subject     = '[ '.$site[0]->site_name.' ]　お問い合わせがありがとうございます';
-            $PHPMailer->Body        = $mail_body;
+            $mail_body_header = "---- 以下お問合せ内容です ----\n\n";
+            $PHPMailer->Subject     = $site[0]->site_name.'へのお問い合わせがありがとうございます';
+            $PHPMailer->Body        = $mail_body_header.$mail_body;
             $PHPMailer->setFrom($smtp[0]->email, $site[0]->site_name);
             $PHPMailer->addAddress($email);
             $PHPMailer->send();
