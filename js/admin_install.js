@@ -8,7 +8,7 @@ document.addEventListener( "DOMContentLoaded", ()=> {
             if (form.checkValidity()) {
                 asyncPost(`${asyncUrl}install.php`, new FormData(form), null, json => {
                     if (json.result == 1) {
-                        location.href = locUrl + adminUrl;
+                        location.href = dataUrl + adminUrl;
                         return;
                     }
                     Swal.fire(swalOption('error', json.msg)).then( ret => {

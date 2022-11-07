@@ -18,6 +18,8 @@ class ListModel
         $this->replace['lang'] = $options['lang'] ?? 'ja';
         $this->replace['lang_list'] = (new LangList)->getLangList();
         $this->replace['date_format'] = $this->replace['lang'] == 'ja' ? 'Y年m月d日':'F j, Y';
+        $this->replace['url'] = $options['url'];
+        $this->replace['imagesurl'] = $options['imagesurl'];
     }
 
     private function getListRecord($options)

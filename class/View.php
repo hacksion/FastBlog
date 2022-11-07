@@ -63,7 +63,7 @@ class View
         <meta property="og:type" content="website">
         <meta property="og:title" content="'.($this->replace['title'] ?? '').'">
         <meta property="og:description" content="'.($this->replace['description'] ?? '').'">
-        <meta property="og:url" content="'.URL.'">
+        <meta property="og:url" content="'.$this->replace['PUBLIC_URL']['URL'].'">
         <meta property="og:site_name" content="'.($this->replace['site_name'] ?? '').'">
         <meta property="og:image" content="'.(isset($this->replace['thumbnail_url']) && $this->replace['thumbnail_url'] ? $this->replace['thumbnail_url']:$this->replace['logo']).'">
         <meta name="twitter:card" content="summary_large_image">
@@ -72,14 +72,14 @@ class View
         <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
         <script defer src="https://kit.fontawesome.com/79dd3834cf.js" crossorigin="anonymous"></script>
         <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script defer src="'.PUBLIC_URL['JS'].'function.js" data-asyncurl="'.PUBLIC_URL['ASYNC'].'"></script>
-        <script defer src="'.PUBLIC_URL['JS'].'RecordList.js"></script>
-        <script defer src="'.PUBLIC_URL['JS'].'common.js"></script>
+        <script defer src="'.$this->replace['PUBLIC_URL']['JS'].'function.js" data-asyncurl="'.$this->replace['PUBLIC_URL']['ASYNC'].'" data-url="'.$this->replace['PUBLIC_URL']['URL'].'" data-imagesurl="'.$this->replace['PUBLIC_URL']['IMG'].'"></script>
+        <script defer src="'.$this->replace['PUBLIC_URL']['JS'].'RecordList.js"></script>
+        <script defer src="'.$this->replace['PUBLIC_URL']['JS'].'common.js"></script>
         '.$add_script.'
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
         '.$add_css.'
-        <link href="'.PUBLIC_URL['CSS'].'style.min.css" rel="stylesheet" type="text/css">
-        <link href="'.PUBLIC_URL['CSS'].'custom.css" rel="stylesheet" type="text/css">
+        <link href="'.$this->replace['PUBLIC_URL']['CSS'].'style.min.css" rel="stylesheet" type="text/css">
+        <link href="'.$this->replace['PUBLIC_URL']['CSS'].'custom.css" rel="stylesheet" type="text/css">
         '.$this->replace['google_tag'];
 
         return $result;
@@ -112,15 +112,15 @@ class View
         <script defer src="https://kit.fontawesome.com/79dd3834cf.js" crossorigin="anonymous"></script>
         <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         
-        <script defer src="'.PUBLIC_URL['JS'].'admin_function.js" data-asyncurl="'.PUBLIC_URL['ASYNC'].'" data-adminurl="'.ADMIN_DIR.'/" data-url="'.URL.'"></script>
-        <script defer src="'.PUBLIC_URL['JS'].'RecordList.js"></script>
-        <script defer src="'.PUBLIC_URL['JS'].'Sortable.js"></script>
-        <script defer src="'.PUBLIC_URL['JS'].'admin_edit.js"></script>
-        <script defer src="'.PUBLIC_URL['JS'].'admin_common.js"></script>
+        <script defer src="'.$this->replace['PUBLIC_URL']['JS'].'admin_function.js" data-asyncurl="'.$this->replace['PUBLIC_URL']['ASYNC'].'" data-adminurl="'.ADMIN_DIR.'/" data-url="'.$this->replace['PUBLIC_URL']['URL'].'" data-imagesurl="'.$this->replace['PUBLIC_URL']['IMG'].'"></script>
+        <script defer src="'.$this->replace['PUBLIC_URL']['JS'].'RecordList.js"></script>
+        <script defer src="'.$this->replace['PUBLIC_URL']['JS'].'Sortable.js"></script>
+        <script defer src="'.$this->replace['PUBLIC_URL']['JS'].'admin_edit.js"></script>
+        <script defer src="'.$this->replace['PUBLIC_URL']['JS'].'admin_common.js"></script>
         '.$add_script.'
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
         '.$add_css.'
-        <link href="'.PUBLIC_URL['CSS'].'admin_style.min.css" rel="stylesheet" type="text/css">
+        <link href="'.$this->replace['PUBLIC_URL']['CSS'].'admin_style.min.css" rel="stylesheet" type="text/css">
         ';
 
         return $result;
@@ -131,7 +131,7 @@ class View
         $nav = '';
         foreach($this->replace['nav_list']['nav'] as $n){
             if($n['main_nav'] == 1){
-                $nav .= '<li class="nav-item"><a class="nav-link" href="'.URL.$n['category_page'].'" data-id="'.$n['category_page'].'">'.$n['subject'].'</a></li>';
+                $nav .= '<li class="nav-item"><a class="nav-link" href="'.$this->replace['PUBLIC_URL']['URL'].$n['category_page'].'" data-id="'.$n['category_page'].'">'.$n['subject'].'</a></li>';
             }
         }
         $logo_bg = $this->replace['logo'] ? ' style="background-image:url('.$this->replace['logo'].')"':'';
@@ -142,7 +142,7 @@ class View
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#p_nav" aria-controls="p_nav" aria-expanded="false">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a href="'.URL.'" class="logo me-lg-5"'.$logo_bg.'>'.$site_name.'</a>
+                <a href="'.$this->replace['PUBLIC_URL']['URL'].'" class="logo me-lg-5"'.$logo_bg.'>'.$site_name.'</a>
                 <div class="collapse navbar-collapse justify-content-start" id="p_nav">
                     <ul class="navbar-nav">
                     '.$nav.'
@@ -162,10 +162,10 @@ class View
 
     public function admin_nav()
     {
-        $url = URL.ADMIN_DIR;
+        $url = $this->replace['PUBLIC_URL']['URL'].ADMIN_DIR;
         $auth = isset($this->replace['login']['auth']) ? $this->replace['login']['auth']:'';
 
-        $icon_img = isset($this->replace['login']['icon']) && $this->replace['login']['icon'] ? '<img src="'.PUBLIC_URL['IMG'].'account/'.$this->replace['login']['id'].'/'.$this->replace['login']['icon'].'">':'<i class="fas fa-user-circle me-1"></i>';
+        $icon_img = isset($this->replace['login']['icon']) && $this->replace['login']['icon'] ? '<img src="'.$this->replace['PUBLIC_URL']['IMG'].'account/'.$this->replace['login']['id'].'/'.$this->replace['login']['icon'].'">':'<i class="fas fa-user-circle me-1"></i>';
         $icon = isset($this->replace['login']) && $this->replace['login'] ? $icon_img.$this->replace['login']['name']:'';
         $icon .= '<span class="d-none" id="authority_id">'.$auth.'</span>';
         $withdrawal_modal = '';
@@ -227,7 +227,7 @@ class View
                 '.$account.'
                 '.$setting.'
                 <li class="nav-item">
-                    <a href="'.URL.'" class="nav-link" target="_blank">公開サイト</a>
+                    <a href="'.$this->replace['PUBLIC_URL']['URL'].'" class="nav-link" target="_blank">公開サイト</a>
                 </li>
                 <li class="nav-item mt-5">
                     <p class="logout_btn btn btn-sm btn-secondary">ログアウト</p>
@@ -250,7 +250,7 @@ class View
         $nav = '';
         foreach($this->replace['nav_list']['nav'] as $n){
             if($n['category_page'] != 'index' && $n['main_nav'] == 1){
-                $nav .= '<li class="nav-item caret"><a class="nav-link" href="'.URL.$n['category_page'].'" data-id="'.$n['category_page'].'" style="'.$this->replace['ft_color'].'">'.$n['subject'].'</a></li>';
+                $nav .= '<li class="nav-item caret"><a class="nav-link" href="'.$this->replace['PUBLIC_URL']['URL'].$n['category_page'].'" data-id="'.$n['category_page'].'" style="'.$this->replace['ft_color'].'">'.$n['subject'].'</a></li>';
             }
         }
 
@@ -262,10 +262,10 @@ class View
                         '.($this->replace['f_logo'] ? '<img src="'.$this->replace['f_logo'].'" class="logo">':'').'
                         <p>'.nl2br($this->replace['footer_text']).'</p>
                         <ul class="sns">
-                        '.($this->replace['facebook'] ? '<li class="list-inline-item"><a href="'.$this->replace['facebook'].'" title="Facebook" class="social_item" target="_blank"><img src="'.URL.'images/facebook.png" alt="facebook"></a></li>':'').'
-                        '.($this->replace['instagram'] ? '<li class="list-inline-item"><a href="'.$this->replace['instagram'].'" title="Instagram" class="social_item" target="_blank"><img src="'.URL.'images/instagram.png" alt="instagram"></a></li>':'').'
-                        '.($this->replace['linkedin'] ? '<li class="list-inline-item"><a href="'.$this->replace['linkedin'].'" title="Linkedin" class="social_item" target="_blank"><img src="'.URL.'images/linkedin.png" alt="linkedin"></a></li>':'').'
-                        '.($this->replace['twitter'] ? '<li class="list-inline-item"><a href="'.$this->replace['twitter'].'" title="Twitter" class="social_item" target="_blank"><img src="'.URL.'images/Twitter.png" alt="Twitter"></a></li>':'').'
+                        '.($this->replace['facebook'] ? '<li class="list-inline-item"><a href="'.$this->replace['facebook'].'" title="Facebook" class="social_item" target="_blank"><img src="'.$this->replace['PUBLIC_URL']['URL'].'images/facebook.png" alt="facebook"></a></li>':'').'
+                        '.($this->replace['instagram'] ? '<li class="list-inline-item"><a href="'.$this->replace['instagram'].'" title="Instagram" class="social_item" target="_blank"><img src="'.$this->replace['PUBLIC_URL']['URL'].'images/instagram.png" alt="instagram"></a></li>':'').'
+                        '.($this->replace['linkedin'] ? '<li class="list-inline-item"><a href="'.$this->replace['linkedin'].'" title="Linkedin" class="social_item" target="_blank"><img src="'.$this->replace['PUBLIC_URL']['URL'].'images/linkedin.png" alt="linkedin"></a></li>':'').'
+                        '.($this->replace['twitter'] ? '<li class="list-inline-item"><a href="'.$this->replace['twitter'].'" title="Twitter" class="social_item" target="_blank"><img src="'.$this->replace['PUBLIC_URL']['URL'].'images/Twitter.png" alt="Twitter"></a></li>':'').'
                         </ul>
                     </div>
                     <div class="col-12 col-lg-6">
@@ -277,7 +277,7 @@ class View
                         </nav>
                     </div>
                 </div>
-                <small style="'.$this->replace['ft_color'].'" class="text-center">&copy; '.date('Y') .' <a href="'.($this->replace['copyright_url'] ? $this->replace['copyright_url']:URL).'" target="_blank" style="'.$this->replace['ft_color'].'">'.$this->replace['site_name'].'</a></small>
+                <small style="'.$this->replace['ft_color'].'" class="text-center">&copy; '.date('Y') .' <a href="'.($this->replace['copyright_url'] ? $this->replace['copyright_url']:$this->replace['PUBLIC_URL']['URL']).'" target="_blank" style="'.$this->replace['ft_color'].'">'.$this->replace['site_name'].'</a></small>
             </div>
         </footer>
         <i id="to_top" class="fas fa-chevron-up bg-dark text-white p-3 rounded-circle" role="button" style="font-size:1rem;"></i><noscript><p class="js_error">Please give permission for Javascript in your browser</p></noscript>';
@@ -360,15 +360,15 @@ class View
         $result = '';
         if($record){
             $date_format = $this->replace['lang'] == 'ja' ? 'Y年m月d日':'F j, Y';
-            $thumb = $record->thumbnail ? '<img src="'.PUBLIC_URL['IMG'].'content/'.$record->id.'/'.$record->thumbnail.'" class="mb-4">':'';
+            $thumb = $record->thumbnail ? '<img src="'.$this->replace['PUBLIC_URL']['IMG'].'content/'.$record->id.'/'.$record->thumbnail.'" class="mb-4">':'';
 
-            $icon = $record->account_icon ? '<span class="icon me-1" style="background-image:url('.PUBLIC_URL['IMG'].'account/'.$record->account_id.'/'.$record->account_icon.')"></span>':'';
+            $icon = $record->account_icon ? '<span class="icon me-1" style="background-image:url('.$this->replace['PUBLIC_URL']['IMG'].'account/'.$record->account_id.'/'.$record->account_icon.')"></span>':'';
 
-            $sns = '<a class="facebook" href="https://www.facebook.com/sharer.php?u='.urlencode(URL.$record->page).'" target="_blank"><i class="fab fa-facebook-f"></i></a>';
-            $sns .= '<a class="twitter" href="https://twitter.com/intent/tweet?text='.urlencode(URL.$record->title).'&url='.urlencode(URL.$record->page).'&via=" target="_blank"><i class="fab fa-twitter"></i></a>';
-            $description = URL.$record->title;
-            $sns .= '<a class="pinterest" href="https://www.pinterest.jp/pin/create/button/?url='.urlencode(URL.$record->page).'&media='.urlencode(PUBLIC_URL['IMG'].'content/'.$record->id.'/'.$record->thumbnail).'&description='.urlencode($description).'" target="_blank" target="_blank"><i class="fab fa-pinterest-p"></i></a>';
-            $sns .= '<a class="whatsapp" href="https://api.whatsapp.com/send?text='.urlencode(URL.$record->title).'%20%0A%0A%20'.urlencode(URL.$record->page).'" target="_blank"><i class="fab fa-whatsapp"></i></a>';
+            $sns = '<a class="facebook" href="https://www.facebook.com/sharer.php?u='.urlencode($this->replace['PUBLIC_URL']['URL'].$record->page).'" target="_blank"><i class="fab fa-facebook-f"></i></a>';
+            $sns .= '<a class="twitter" href="https://twitter.com/intent/tweet?text='.urlencode($this->replace['PUBLIC_URL']['URL'].$record->title).'&url='.urlencode($this->replace['PUBLIC_URL']['URL'].$record->page).'&via=" target="_blank"><i class="fab fa-twitter"></i></a>';
+            $description = $this->replace['PUBLIC_URL']['URL'].$record->title;
+            $sns .= '<a class="pinterest" href="https://www.pinterest.jp/pin/create/button/?url='.urlencode($this->replace['PUBLIC_URL']['URL'].$record->page).'&media='.urlencode($this->replace['PUBLIC_URL']['IMG'].'content/'.$record->id.'/'.$record->thumbnail).'&description='.urlencode($description).'" target="_blank" target="_blank"><i class="fab fa-pinterest-p"></i></a>';
+            $sns .= '<a class="whatsapp" href="https://api.whatsapp.com/send?text='.urlencode($this->replace['PUBLIC_URL']['URL'].$record->title).'%20%0A%0A%20'.urlencode($this->replace['PUBLIC_URL']['URL'].$record->page).'" target="_blank"><i class="fab fa-whatsapp"></i></a>';
 
             $table_of_contents = '';
             if($record->table_of_contents){
@@ -384,8 +384,8 @@ class View
             $result .= '
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="'.URL.'">'.$this->replace['HOME'].'</a></li>
-                    <li class="breadcrumb-item"><a href="'.URL.$record->category_page.'">'.$record->category_subject.'</a></li>
+                    <li class="breadcrumb-item"><a href="'.$this->replace['PUBLIC_URL']['URL'].'">'.$this->replace['HOME'].'</a></li>
+                    <li class="breadcrumb-item"><a href="'.$this->replace['PUBLIC_URL']['URL'].$record->category_page.'">'.$record->category_subject.'</a></li>
                     
                 </ol>
             </nav>
@@ -415,7 +415,7 @@ class View
                 $result .= '
                 <div id="admodal_elm" class="d-none" data-timer="'.$record->banner_timer.'">
                 <i class="fa-solid fa-circle-xmark" id="admodal_close"></i>';
-                $img = '<img src="'.PUBLIC_URL['IMG'].'content/'.$record->id.'/'.$record->banner.'" id="admodal_img">';
+                $img = '<img src="'.$this->replace['PUBLIC_URL']['IMG'].'content/'.$record->id.'/'.$record->banner.'" id="admodal_img">';
                 if($record->banner_link){
                     $result .= '<a href="'.$record->banner_link.'" target="_blank" id="admodal_linkurl">';
                     $result .= $img;
@@ -432,8 +432,8 @@ class View
     public function otherArticles()
     {
         $date_format = $this->replace['lang'] == 'ja' ? 'Y年m月d日':'F j, Y';
-        $before = $this->replace['other_articles_records']['before'] ? '<a href="'.URL.$this->replace['other_articles_records']['before'][0]->category_page.'/'.$this->replace['other_articles_records']['before'][0]->page.'">'.$this->replace['other_articles_records']['before'][0]->title.'</a>':'';
-        $after = $this->replace['other_articles_records']['after'] ? '<a href="'.URL.$this->replace['other_articles_records']['after'][0]->category_page.'/'.$this->replace['other_articles_records']['after'][0]->page.'">'.$this->replace['other_articles_records']['after'][0]->title.'</a>':'';
+        $before = $this->replace['other_articles_records']['before'] ? '<a href="'.$this->replace['PUBLIC_URL']['URL'].$this->replace['other_articles_records']['before'][0]->category_page.'/'.$this->replace['other_articles_records']['before'][0]->page.'">'.$this->replace['other_articles_records']['before'][0]->title.'</a>':'';
+        $after = $this->replace['other_articles_records']['after'] ? '<a href="'.$this->replace['PUBLIC_URL']['URL'].$this->replace['other_articles_records']['after'][0]->category_page.'/'.$this->replace['other_articles_records']['after'][0]->page.'">'.$this->replace['other_articles_records']['after'][0]->title.'</a>':'';
         $result = '
         <section class="other_articles">
             <div class="row">
@@ -455,7 +455,7 @@ class View
     {
         $result = '';
         if($options){
-            $result = $options->side_img ? '<img src="'.PUBLIC_URL['IMG'].'sidenav/'.$options->id.'/'.$options->side_img.'">':'';
+            $result = $options->side_img ? '<img src="'.$this->replace['PUBLIC_URL']['IMG'].'sidenav/'.$options->id.'/'.$options->side_img.'">':'';
             $result .= $options->html ? $options->html:'';
         }
         return $result;
@@ -472,13 +472,13 @@ class View
     {
         $result = '';
         foreach($record as $list){
-            $thumb = $list->thumbnail ? '<div class="thumb" style="background-image:url('.PUBLIC_URL['IMG'].'content/'.$list->id.'/s_'.$list->thumbnail.')"></div>':'';
+            $thumb = $list->thumbnail ? '<div class="thumb" style="background-image:url('.$this->replace['PUBLIC_URL']['IMG'].'content/'.$list->id.'/s_'.$list->thumbnail.')"></div>':'';
             $col_3 = $thumb ? '<div class="col-3">'.$thumb.'</div>':'';
             $result .= '
             <div class="row mb-4">
                 '.$col_3.'
                 <div class="col-'.($thumb ? 9:12).'">
-                    <h3><a href="'.URL.$list->category_page.'/'.$list->page.'">'.strWidth($list->title, 100).'</a></h3>
+                    <h3><a href="'.$this->replace['PUBLIC_URL']['URL'].$list->category_page.'/'.$list->page.'">'.strWidth($list->title, 100).'</a></h3>
                 </div>
             </div>
             ';

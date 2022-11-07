@@ -14,10 +14,9 @@ class Model
         $this->replace['site_id'] = 1;
         $this->setting = $this->DB->query('SELECT * FROM `setting` WHERE `id` = ?', [$this->replace['site_id']])[0];
         $this->replace['lang'] = explode('_', $this->setting->lang)[0];
-        $this->replace['url'] = URL;
-        $this->replace['logo'] = $this->setting->site_logo ? PUBLIC_URL['IMG'].'setting/'.$this->replace['site_id'].'/'.$this->setting->site_logo:'';
-        $this->replace['f_logo'] = $this->setting->site_f_logo ? PUBLIC_URL['IMG'].'setting/'.$this->replace['site_id'].'/'.$this->setting->site_f_logo:'';
-        $this->replace['icon'] = $this->setting->site_icon ? PUBLIC_URL['IMG'].'setting/'.$this->replace['site_id'].'/'.$this->setting->site_icon:'';
+        $this->replace['logo'] = $this->setting->site_logo ? $this->replace['PUBLIC_URL']['IMG'].'setting/'.$this->replace['site_id'].'/'.$this->setting->site_logo:'';
+        $this->replace['f_logo'] = $this->setting->site_f_logo ? $this->replace['PUBLIC_URL']['IMG'].'setting/'.$this->replace['site_id'].'/'.$this->setting->site_f_logo:'';
+        $this->replace['icon'] = $this->setting->site_icon ? $this->replace['PUBLIC_URL']['IMG'].'setting/'.$this->replace['site_id'].'/'.$this->setting->site_icon:'';
         $this->replace['contact_flag'] = $this->setting->contact;
         $this->replace['withdrawal_modal_flag'] = $this->setting->withdrawal_modal;
         
@@ -52,7 +51,7 @@ class Model
     private function redirect($redirect = '') : void
     {
         header("HTTP/1.1 301 Moved Permanently");
-        header("Location:" . ($redirect ? $redirect : URL));
+        header("Location:" . ($redirect ? $redirect : $this->replace['PUBLIC_URL']['URL']));
         exit;
     }
 
@@ -64,12 +63,12 @@ class Model
         $this->replace['site_name'] = $this->setting->site_name;
         $this->replace['footer_text'] = $this->setting->footer_text;
         $this->replace['copyright'] = date('Y').' '.$this->setting->site_name;
-        $this->replace['copyright_url'] = $this->setting->copyright_url ? $this->setting->copyright_url:URL;
+        $this->replace['copyright_url'] = $this->setting->copyright_url ? $this->setting->copyright_url:$this->replace['PUBLIC_URL']['URL'];
         $this->replace['bg_color'] = $this->setting->bg_color ? 'background-color:'.$this->setting->bg_color.';':'';
         $this->replace['f_color'] = $this->setting->f_color ? 'background-color:'.$this->setting->f_color.';':'';
         $this->replace['ft_color'] = $this->setting->ft_color ? 'color:'.$this->setting->ft_color.';':'';
         $this->replace['ft_color_rgb'] = $this->setting->ft_color ? hex2rgb($this->setting->ft_color):'';
-        $this->replace['f_image'] = $this->setting->f_image ? 'background-image:url('.PUBLIC_URL['IMG'].'setting/'.$this->setting->id.'/'.$this->setting->f_image.')':'';
+        $this->replace['f_image'] = $this->setting->f_image ? 'background-image:url('.$this->replace['PUBLIC_URL']['IMG'].'setting/'.$this->setting->id.'/'.$this->setting->f_image.')':'';
         $this->replace['facebook'] = $this->setting->facebook;
         $this->replace['instagram'] = $this->setting->instagram;
         $this->replace['linkedin'] = $this->setting->linkedin;
@@ -111,7 +110,7 @@ class Model
         if($this->replace['method'] != 'login'){
             $this->replace['login'] = (new Auth('array'))->checkExec();
             if($this->replace['login']['result'] == 0){
-                $this->redirect(PUBLIC_URL['ADMIN_ERROR']);
+                $this->redirect($this->replace['PUBLIC_URL']['URL'].ADMIN_DIR.'/login');
             }
         }
     }
@@ -275,7 +274,7 @@ class Model
             $this->replace['description'] = $result[0]->description;
             $this->replace['callFunction']['content_area'] = $result[0];
             $img_path = 'content/'.$result[0]->id.'/s_'.$result[0]->thumbnail;
-            $this->replace['thumbnail_url'] = file_exists(SERVER_DIR['IMG'].$img_path) ? PUBLIC_URL['IMG'].$img_path:$this->replace['logo'];
+            $this->replace['thumbnail_url'] = file_exists(SERVER_DIR['IMG'].$img_path) ? $this->replace['PUBLIC_URL']['IMG'].$img_path:$this->replace['logo'];
             $this->replace['content_id'] = $result[0]->id;
             $this->otherArticles();
         }
@@ -339,9 +338,9 @@ class Model
     public function admin_content_edit()
     {
         $this->status200();
-        array_unshift($this->replace['add_script'], URL.'plugin/ckeditor/ckeditor.js', PUBLIC_URL['JS'].'flatpickr.js');
+        array_unshift($this->replace['add_script'], $this->replace['PUBLIC_URL']['URL'].'plugin/ckeditor/ckeditor.js', $this->replace['PUBLIC_URL']['JS'].'flatpickr.js');
         $this->replace['add_css'] = [
-            PUBLIC_URL['CSS'].'flatpickr.css',
+            $this->replace['PUBLIC_URL']['CSS'].'flatpickr.css',
         ];
         $form = [
             'form_id' => '',
@@ -361,7 +360,7 @@ class Model
             'form_category_options' => '<option value="">---</oprion>',
             'form_thumbnail_img' => '',
             'form_delete' => '',
-            'back_url' => URL.ADMIN_DIR.'/content',
+            'back_url' => $this->replace['PUBLIC_URL']['URL'].ADMIN_DIR.'/content',
             'public_content_url' => '',
             'form_banner_link' => '',
             'form_banner' => '',
@@ -398,7 +397,7 @@ class Model
                 $form['form_delete'] = '<button type="button" class="btn btn-sm btn-danger" id="delete_edit_record" data-id="'.$this->replace['id'].'" data-table="content">削除</button>';
                 $form['public_content_url'] = '
                 <label for="" class="form-label">公開コンテンツ</label>
-                <p class="m-0"><a href="'.URL.$form['form_category_name'].'/'.$form['form_page'].'" class="btn btn-sm btn-secondary" target="_blank">ページ確認</a></p>';
+                <p class="m-0"><a href="'.$this->replace['PUBLIC_URL']['URL'].$form['form_category_name'].'/'.$form['form_page'].'" class="btn btn-sm btn-secondary" target="_blank">ページ確認</a></p>';
             }
         }
         $LVL_PUBLISHING = [0 => '非公開', 1 => '公開'];
@@ -434,7 +433,7 @@ class Model
         if($form['form_thumbnail']){
             $form['form_thumbnail_img'] = '
             <div class="thumbnail_file_area">
-            <img src="'.PUBLIC_URL['IMG'].'content/'.$form['form_id'].'/'.$form['form_thumbnail'].'">
+            <img src="'.$this->replace['PUBLIC_URL']['IMG'].'content/'.$form['form_id'].'/'.$form['form_thumbnail'].'">
             <div class="text-danger"><i class="fas fa-trash file_trash" data-id="'.$this->replace['id'].'" data-name="'.$form['form_thumbnail'].'" data-table="content" data-type="images" data-col="thumbnail" role="button"></i></div>
             </div>
             ';
@@ -442,7 +441,7 @@ class Model
         if($form['form_banner']){
             $form['form_banner_img'] = '
             <div class="banner_file_area">
-            <img src="'.PUBLIC_URL['IMG'].'content/'.$form['form_id'].'/'.$form['form_banner'].'">
+            <img src="'.$this->replace['PUBLIC_URL']['IMG'].'content/'.$form['form_id'].'/'.$form['form_banner'].'">
             <div class="text-danger"><i class="fas fa-trash file_trash" data-id="'.$this->replace['id'].'" data-name="'.$form['form_banner'].'" data-table="content" data-type="images" data-col="banner" role="button"></i></div>
             </div>
             ';
@@ -454,7 +453,7 @@ class Model
     public function admin_setting()
     {
         $this->status200();
-        array_unshift($this->replace['add_script'], URL.'plugin/ckeditor/ckeditor.js');
+        array_unshift($this->replace['add_script'], $this->replace['PUBLIC_URL']['URL'].'plugin/ckeditor/ckeditor.js');
         
         foreach($this->setting as $key => $value){
             if($key == 'lang'){
@@ -464,16 +463,16 @@ class Model
                 ';
             }elseif($key == 'site_logo'){
                 $this->replace['form_site_logo'] = $this->setting->site_logo;
-                $this->replace['form_logo_upload_area'] = $this->setting->site_logo ? '<img src="'.PUBLIC_URL['IMG'].'setting/'.$this->replace['site_id'].'/'.$this->setting->site_logo.'" style="width:160px" class="me-1"><div class="text-danger"><i class="fas fa-trash file_trash" data-id="1" data-name="'.$this->setting->site_logo.'" data-table="setting" data-type="images" data-col="site_logo" role="button"></i></div>':'';
+                $this->replace['form_logo_upload_area'] = $this->setting->site_logo ? '<img src="'.$this->replace['PUBLIC_URL']['IMG'].'setting/'.$this->replace['site_id'].'/'.$this->setting->site_logo.'" style="width:160px" class="me-1"><div class="text-danger"><i class="fas fa-trash file_trash" data-id="1" data-name="'.$this->setting->site_logo.'" data-table="setting" data-type="images" data-col="site_logo" role="button"></i></div>':'';
             }elseif($key == 'site_f_logo'){
                 $this->replace['form_site_f_logo'] = $this->setting->site_f_logo;
-                $this->replace['form_f_logo_upload_area'] = $this->setting->site_f_logo ? '<img src="'.PUBLIC_URL['IMG'].'setting/'.$this->replace['site_id'].'/'.$this->setting->site_f_logo.'" style="width:160px;background-color:'.$this->setting->f_color.'" class="me-1"><div class="text-danger"><i class="fas fa-trash file_trash" data-id="1" data-name="'.$this->setting->site_f_logo.'" data-table="setting" data-type="images" data-col="site_f_logo" role="button"></i></div>':'';
+                $this->replace['form_f_logo_upload_area'] = $this->setting->site_f_logo ? '<img src="'.$this->replace['PUBLIC_URL']['IMG'].'setting/'.$this->replace['site_id'].'/'.$this->setting->site_f_logo.'" style="width:160px;background-color:'.$this->setting->f_color.'" class="me-1"><div class="text-danger"><i class="fas fa-trash file_trash" data-id="1" data-name="'.$this->setting->site_f_logo.'" data-table="setting" data-type="images" data-col="site_f_logo" role="button"></i></div>':'';
             }elseif($key == 'f_image'){
                 $this->replace['form_f_image'] = $this->setting->f_image;
-                $this->replace['f_image_upload_area'] = $this->setting->f_image ? '<img src="'.PUBLIC_URL['IMG'].'setting/'.$this->replace['site_id'].'/'.$this->setting->f_image.'" style="width:100%;background-color:'.$this->setting->f_color.'" class="me-1"><div class="text-danger"><i class="fas fa-trash file_trash" data-id="1" data-name="'.$this->setting->f_image.'" data-table="setting" data-type="images" data-col="f_image" role="button"></i></div>':'';
+                $this->replace['f_image_upload_area'] = $this->setting->f_image ? '<img src="'.$this->replace['PUBLIC_URL']['IMG'].'setting/'.$this->replace['site_id'].'/'.$this->setting->f_image.'" style="width:100%;background-color:'.$this->setting->f_color.'" class="me-1"><div class="text-danger"><i class="fas fa-trash file_trash" data-id="1" data-name="'.$this->setting->f_image.'" data-table="setting" data-type="images" data-col="f_image" role="button"></i></div>':'';
             }elseif($key == 'site_icon'){
                 $this->replace['form_site_icon'] = $this->setting->site_icon;
-                $this->replace['form_icon_upload_area'] = $this->setting->site_icon ?  '<img src="'.PUBLIC_URL['IMG'].'setting/'.$this->replace['site_id'].'/'.$this->setting->site_icon.'" style="width:72px" class="me-1"><div class="text-danger"><i class="fas fa-trash file_trash" data-id="1" data-name="'.$this->setting->site_icon.'" data-table="setting" data-type="images" data-col="site_icon" role="button"></i></div>':'';
+                $this->replace['form_icon_upload_area'] = $this->setting->site_icon ?  '<img src="'.$this->replace['PUBLIC_URL']['IMG'].'setting/'.$this->replace['site_id'].'/'.$this->setting->site_icon.'" style="width:72px" class="me-1"><div class="text-danger"><i class="fas fa-trash file_trash" data-id="1" data-name="'.$this->setting->site_icon.'" data-table="setting" data-type="images" data-col="site_icon" role="button"></i></div>':'';
             }elseif($key == 'withdrawal_modal'){
                 $this->replace['form_withdrawal_modal'] = '
                 <input type="radio" class="btn-check" name="withdrawal_modal" id="withdrawal_modal_0" value="0"'.($this->setting->withdrawal_modal == 0 ? ' checked':'').'>
@@ -502,7 +501,7 @@ class Model
     public function admin_smtp()
     {
         $this->status200();
-        array_unshift($this->replace['add_script'], URL.'plugin/ckeditor/ckeditor.js');
+        array_unshift($this->replace['add_script'], $this->replace['PUBLIC_URL']['URL'].'plugin/ckeditor/ckeditor.js');
         $site = $this->DB->query('SELECT * FROM `smtp` WHERE `id` = ?', [$this->replace['site_id']]);
         foreach($site[0] as $key => $value){
                 $this->replace['form_'.$key] = $value;
@@ -513,12 +512,12 @@ class Model
     public function admin_sidenav()
     {
         $this->status200();
-        array_unshift($this->replace['add_script'], URL.'plugin/ckeditor/ckeditor.js');
+        array_unshift($this->replace['add_script'], $this->replace['PUBLIC_URL']['URL'].'plugin/ckeditor/ckeditor.js');
         $site = $this->DB->query('SELECT * FROM `sidenav` WHERE `id` = ?', [$this->replace['site_id']]);
         foreach($site[0] as $key => $value){
             if($key == 'side_img') {
                 $this->replace['form_side_img'] = $value;
-                $this->replace['form_logo_upload_area'] = $value ? '<img src="'.PUBLIC_URL['IMG'].'sidenav/'.$this->replace['site_id'].'/'.$value.'"><div class="text-danger"><i class="fas fa-trash file_trash" data-id="'.$this->replace['site_id'].'" data-name="'.$value.'" data-table="sidenav" data-type="images" data-col="side_img" role="button"></i></div>':'';
+                $this->replace['form_logo_upload_area'] = $value ? '<img src="'.$this->replace['PUBLIC_URL']['IMG'].'sidenav/'.$this->replace['site_id'].'/'.$value.'"><div class="text-danger"><i class="fas fa-trash file_trash" data-id="'.$this->replace['site_id'].'" data-name="'.$value.'" data-table="sidenav" data-type="images" data-col="side_img" role="button"></i></div>':'';
             }elseif($key == 'sidenav_status'){
                 $this->replace['form_sidenav_status'] = '
                     <input type="radio" class="btn-check" name="sidenav_status" id="sidenav_status_0" value="0"'.($value == 0 ? ' checked':'').'>
@@ -552,7 +551,7 @@ class Model
     public function admin_withdrawal_modal()
     {
         $this->status200();
-        array_unshift($this->replace['add_script'], URL.'plugin/ckeditor/ckeditor.js');
+        array_unshift($this->replace['add_script'], $this->replace['PUBLIC_URL']['URL'].'plugin/ckeditor/ckeditor.js');
         $form = [
             'form_id' => '',
             'form_html' => ''
@@ -597,7 +596,7 @@ class Model
     {
         $this->status200();
         $this->replace['token'] = $_SESSION['csrf_token'] = bin2hex(openssl_random_pseudo_bytes(16));
-        $this->replace['redir_url'] = URL.ADMIN_DIR;
+        $this->replace['redir_url'] = $this->replace['PUBLIC_URL']['URL'].ADMIN_DIR;
         return $this->replace;
     }
 
@@ -671,7 +670,7 @@ class Model
         $accessTop = $this->DB->query('SELECT `id`,`title`,`access` FROM `content` WHERE `access` > 0 ORDER BY `access` DESC', []);
         $result = '<ul class="top_number">';
         foreach($accessTop as $value){
-            $link =  $this->replace['login']['auth'] != 2 ? '<a href="'.URL.ADMIN_DIR.'/content/edit/'.$value->id.'">'.strWidth($value->title, 50).'</a>':strWidth($value->title, 50);
+            $link =  $this->replace['login']['auth'] != 2 ? '<a href="'.$this->replace['PUBLIC_URL']['URL'].ADMIN_DIR.'/content/edit/'.$value->id.'">'.strWidth($value->title, 50).'</a>':strWidth($value->title, 50);
             $result .= '<li><span class="float-start">'.$link.'</span><span class="badge bg-danger float-end">'.number_format($value->access).'</span></li>';
         }
         $result .= '</ul>';

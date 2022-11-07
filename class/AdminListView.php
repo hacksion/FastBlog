@@ -8,6 +8,8 @@ class AdminListView
     private $lang;
     private $auth;
     private $systxt = [];
+    private $url;
+    private $imagesurl;
 
     public function __construct($options = [])
     {
@@ -16,6 +18,8 @@ class AdminListView
         $this->sql_session = $options['sql_session'] ?? [];
         $this->lang = $options['lang'] ?? 'ja';
         $this->auth = $options['auth'] ?? '';
+        $this->url = $options['url'];
+        $this->imagesurl = $options['imagesurl'];
     }
 
     public function category()
@@ -49,7 +53,7 @@ class AdminListView
     public function content()
     {
         $list_html = $this->records ? '':'<tr><td colspan="7" class="text-center">レコードがありません</td></tr>';
-        $url = URL.ADMIN_DIR.'/content/edit';
+        $url = $this->url.ADMIN_DIR.'/content/edit';
         foreach ($this->records as $value) {
             $publishing = '<span class="text-danger">非公開<span>';
             if($value->publishing == 1){
@@ -83,7 +87,7 @@ class AdminListView
         foreach ($this->records as $value) {
             $del = $value->del == 1 ? '<span class="text-danger">無効</span>':'有効';
             $auth = $value->auth == 1 ? '<span class="text-danger">管理者</span>':'ライター';
-            $icon = $value->icon ? '<img src="'.PUBLIC_URL['IMG'].'account/'.$value->id.'/'.$value->icon.'" style="width:30px">':'';
+            $icon = $value->icon ? '<img src="'.$this->imagesurl.'account/'.$value->id.'/'.$value->icon.'" style="width:30px">':'';
             $list_html .= '
             <tr>
                 <td class="text-nowrap align-middle">

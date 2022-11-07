@@ -21,7 +21,7 @@ class Controller
         $this->replace['add_script'] = [];
         $js = str_replace('/', '_', $file_name);
         if(file_exists(SERVER_DIR['JS'].$js.'.js') && $file_name != 404){
-            array_push($this->replace['add_script'], PUBLIC_URL['JS'].$js.'.js');
+            array_push($this->replace['add_script'], $this->replace['PUBLIC_URL']['JS'].$js.'.js');
         }
         $this->replace['tpl'] = $tpl;
     }
@@ -44,8 +44,8 @@ class Controller
 
     public function api()
     {
-        $method = array_shift($this->replace);
-        if($method && $this->replace){
+        $method = $this->replace['method'];
+        if($method && $this->replace['type'] && $this->replace['options']){
             (new Api($this->replace))->$method();
         }
     }
@@ -71,7 +71,7 @@ class Controller
             (new View($this->replace))->display();
         } catch (\Throwable $e) {
             header("HTTP/1.1 301 Moved Permanently");
-            header("Location:" . URL.'install');
+            header("Location:" . $this->replace['PUBLIC_URL']['URL'].'install');
             exit;
         }
     }
@@ -131,7 +131,7 @@ class Controller
             (new View($this->replace))->display();
         } catch (\Throwable $e) {
             header("HTTP/1.1 301 Moved Permanently");
-            header("Location:" . URL.'install');
+            header("Location:" . $this->replace['PUBLIC_URL']['URL'].'install');
             exit;
         }
     }

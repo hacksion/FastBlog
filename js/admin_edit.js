@@ -133,7 +133,7 @@ const editCreate = () => {
                                 Swal.fire(swalOption('success', json.msg)).then( ret => {
                                     if (ret.value){
                                         if(json.edit == 'add'){
-                                            window.location.href = locUrl + adminUrl + json.dir;
+                                            window.location.href = dataUrl + adminUrl + json.dir;
                                             return;
                                         }
                                         window.location.reload();
@@ -218,7 +218,7 @@ const deleteEditRecord = () => {
                         if(parseInt(json.result) > 0){
                             Swal.fire(swalOption('success', json.msg)).then( ret => {
                                 if (ret.value) {
-                                    window.location.href = locUrl + adminUrl + json.dir;
+                                    window.location.href = dataUrl + adminUrl + json.dir;
                                 }
                             });
                             return;
@@ -427,7 +427,7 @@ const newCreateFixed = () => {
         v.onclick = e => {
             e.preventDefault();
             e.stopPropagation();
-            location.href = locUrl + adminUrl + e.target.dataset.adminurl;
+            location.href = dataUrl + adminUrl + e.target.dataset.adminurl;
         }
     });
 }
@@ -493,18 +493,10 @@ const setDetailImage = (key, json, area) => {
         card.setAttribute('data-table', json['table_name']);
         //img
         let img = document.createElement('img');
-        img.setAttribute('src', `${locUrl}/images/${json['table_name']}/${json['id'].value}/${val}`);
+        img.setAttribute('src', `${imagesurl}${json['table_name']}/${json['id'].value}/${val}`);
         img.setAttribute('class', 'w100');
         img.setAttribute('style', 'background-color:white');
         card.appendChild(img);
-        //a
-        // let a = document.createElement('a');
-        // a.setAttribute('href', '');
-        // a.setAttribute('data-bs-toggle', 'modal');
-        // a.setAttribute('data-bs-target', '#memo_modal');
-        // a.setAttribute('data-bs-whatever', `${locUrl}/images/${json['table_name']}/${json['id'].value}/${val}`);
-        // a.appendChild(img);
-        // card.appendChild(a);
         //card-body
         let card_body = document.createElement('div');
         card_body.setAttribute('class', 'card-body p-1 text-right text-danger');

@@ -1,4 +1,6 @@
 let asyncUrl = document.querySelector('script[data-asyncurl]').dataset.asyncurl;
+let dataUrl = document.querySelector('script[data-url]').dataset.url;
+let dataImagesUrl = document.querySelector('script[data-imagesurl]').dataset.imagesurl;
 ////////////////////////////////////////////////
 //  sweetalert2 default
 ////////////////////////////////////////////////

@@ -58,7 +58,7 @@ CKEDITOR.editorConfig = function(config) {
     config.removeDialogTabs = 'image:advanced;link:advanced';
 
 
-    config.filebrowserImageBrowseUrl = locUrl + 'plugin/ckeditor/kcfinder/browse.php?type=images';
+    config.filebrowserImageBrowseUrl = dataUrl + 'plugin/ckeditor/kcfinder/browse.php?type=images';
 
     //タグの要素を消さないようにする　デフォルトはセキュリティー上消しているもよう
     //config.allowedContent = true;
@@ -68,5 +68,5 @@ CKEDITOR.editorConfig = function(config) {
     config.fillEmptyBlocks = false;
     config.image_previewText = ' ';
     config.extraPlugins = 'preview,justify';
-    config.contentsCss = [ locUrl + 'css/style.css', locUrl + 'css/custom.css'];
+    config.contentsCss = [ dataUrl + 'css/style.css', dataUrl + 'css/custom.css'];
 };

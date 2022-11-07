@@ -11,6 +11,8 @@ class AdminListModel
         $this->Retrieval = new Retrieval;
         $this->SearchForms = new SearchForms($options['form_name']);
         $this->replace['lang'] = $options['lang'] ?? 'ja';
+        $this->replace['url'] = $options['url'];
+        $this->replace['imagesurl'] = $options['imagesurl'];
     }
 
     private function getListRecord($options)

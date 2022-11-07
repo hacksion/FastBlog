@@ -1,5 +1,7 @@
 const RecordList = class {
     init = {
+        'url': `${dataUrl}`,
+        'imagesurl' : `${dataImagesUrl}`,
         'post_file' : `${asyncUrl}list_controller.php`,
         'reset_file' : `${asyncUrl}reset.php`,
         'form_name' : 'search',
@@ -44,6 +46,8 @@ const RecordList = class {
             form.append("lang", this.init.lang);
             form.append("method", this.init.method);
             form.append("page", this.init.page);
+            form.append("url", this.init.url);
+            form.append("imagesurl", this.init.imagesurl);
             
             list_area.innerHTML = this.loadingHTML();
             if(this.init.post_file){

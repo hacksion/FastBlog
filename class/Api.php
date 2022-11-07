@@ -14,7 +14,7 @@ class Api
 
     public function get()
     {
-        $method = isset($this->options[0]) ? array_shift($this->options):'unknown';
+        $method = isset($this->options['type']) ? $this->options['type']:'unknown';
         if(method_exists(get_class(), $method)){
             $this->$method($this->options);
         }
@@ -48,13 +48,13 @@ class Api
         DATE_FORMAT(`content`.`release_date`, "%Y%m%d%H%i") < DATE_FORMAT(NOW(), "%Y%m%d%H%i") AND
         `content`.`page` = ?
         ';
-        $record = $this->DB->query($sql, [$options[0]]);
+        $record = $this->DB->query($sql, [$options['options'][0]]);
         if($record){
             $result['date'] = $record[0]['release_date'];
             $result['title'] = $record[0]['title'];
             if($record[0]['thumbnail']){
-                $result['thumbnail'] = PUBLIC_URL['IMG'].'content/'.$record[0]['id'].'/'.$record[0]['thumbnail'];
-                $result['s_thumbnail'] = PUBLIC_URL['IMG'].'content/'.$record[0]['id'].'/s_'.$record[0]['thumbnail'];
+                $result['thumbnail'] = $this->options['PUBLIC_URL']['IMG'].'content/'.$record[0]['id'].'/'.$record[0]['thumbnail'];
+                $result['s_thumbnail'] = $this->options['PUBLIC_URL']['IMG'].'content/'.$record[0]['id'].'/s_'.$record[0]['thumbnail'];
             }
             $result['author'] = $record[0]['author_name'];
             $result['category'] = $record[0]['category_page'];
@@ -65,8 +65,8 @@ class Api
 
     public function category($options)
     {
-        $page = $options[0] ?? 'index';
-        $limit = $options[1] ?? 10;
+        $page = $options['options'][0] ?? 'index';
+        $limit = $options['options'][1] ?? 10;
         $result = [
             'page' => '',
             'subject' => '',
@@ -101,9 +101,9 @@ class Api
                     'page' => $value['page'],
                     'title' => $value['title'],
                     'author' => $value['author_name'],
-                    'thumbnail' => $value['thumbnail'] ? PUBLIC_URL['IMG'].'content/'.$value['id'].'/'.$value['thumbnail']:'',
-                    's_thumbnail' => $value['thumbnail'] ? PUBLIC_URL['IMG'].'content/'.$value['id'].'/s_'.$value['thumbnail']:'',
-                    'url' => URL.$value['page']
+                    'thumbnail' => $value['thumbnail'] ? $this->options['PUBLIC_URL']['IMG'].'content/'.$value['id'].'/'.$value['thumbnail']:'',
+                    's_thumbnail' => $value['thumbnail'] ? $this->options['PUBLIC_URL']['IMG'].'content/'.$value['id'].'/s_'.$value['thumbnail']:'',
+                    'url' => $this->options['PUBLIC_URL']['URL'].$result['page'].'/'.$value['page']
                 ];
             }
         }

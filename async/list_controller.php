@@ -6,7 +6,6 @@ if(empty($category_name)){
     echo '404 Not Found';
     exit;
 }
-
 $method = $page == 'public' ? 'lists':'admin';
 $ListController = new TM\ListController([
     'category_name' => $category_name,
@@ -14,6 +13,8 @@ $ListController = new TM\ListController([
     'form_name' => $category_name,
     'lang' => $_POST['lang'],
     'method' => $_POST['method'],
+    'url' => $_POST['url'],
+    'imagesurl' => $_POST['imagesurl']
 ]);
 if(method_exists($ListController, $method)){
     $ListController->$method();

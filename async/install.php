@@ -344,7 +344,7 @@ try {
             'html' => NULL,
         ]);
 
-        unlink(PRIVATE_DIR.'install.php');
+        unlink(dirname(__DIR__).'install.php');
         $result_number = 1;
     }
 

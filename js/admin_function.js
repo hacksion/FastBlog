@@ -2,8 +2,9 @@
 //  URL
 ////////////////////////////////////////////////
 let adminUrl = document.querySelector('script[data-adminurl]').dataset.adminurl;
-let locUrl = document.querySelector('script[data-url]').dataset.url;
 let asyncUrl = document.querySelector('script[data-asyncurl]').dataset.asyncurl;
+let dataUrl = document.querySelector('script[data-url]').dataset.url;
+let dataImagesUrl = document.querySelector('script[data-imagesurl]').dataset.imagesurl;
 ////////////////////////////////////////////////
 //  sweetalert2 default
 ////////////////////////////////////////////////
@@ -392,7 +393,7 @@ const logout = () => {
             fdo.append("token", "logout");
             asyncPost(`${asyncUrl}logout.php`, fdo, null, json => {
                 if (json.result > 0) {
-                    location.href = locUrl + adminUrl;
+                    location.href = dataUrl + adminUrl;
                     return;
                 }
                 Swal.fire(swalOption('error', json.msg));
