@@ -32,7 +32,7 @@ class ListView
             }
             $list_html = '<div class="content_list">';
             foreach ($this->records as $list) {
-                $rep_value = ['{table_of_contents}' => ''];
+                $rep_value = ['{table_of_contents}' => '', '{contact_form}' => ''];
                 $desc = str_replace( array_keys( $rep_value ), array_values( $rep_value ), strip_tags($list->html));
                 $thumb = $list->thumbnail ? '<a href="'.$this->url.$list->category_page.'/'.$list->page.'" class="thumb" style="background-image:url('.$this->imagesurl.'content/'.$list->id.'/'.$list->thumbnail.')"></a>':'';
                 $list_html .= '
