@@ -26,7 +26,7 @@ class Controller
         $this->replace['tpl'] = $tpl;
     }
 
-    private function resourceReplace($url)
+    private function resourceReplace($url, $exclusion = [])
     {
         $source = file_get_contents($url);
         if($source){
@@ -35,8 +35,10 @@ class Controller
                 foreach($matches[0] as $m){
                     $val = ltrim($m, '{');
                     $val = rtrim($val, '}');
-                    $val = explode(',', $val);
-                    $this->replace['callFunction'][$val[0]] = $val[1] ?? '';
+                    if(in_array($val, $exclusion) == false){
+                        $val = explode(',', $val);
+                        $this->replace['callFunction'][$val[0]] = $val[1] ?? '';
+                    }
                 }
             }
         }
@@ -121,7 +123,11 @@ class Controller
             $this->replace['category_page'] = $page;
             $method = 'admin_'.$page.$sub;
             $this->setTpl('admin/'.$page.$sub);
-            $this->resourceReplace($this->replace['tpl']); 
+            $admin_exclusion = [
+                'contact_form',
+                'table_of_contents'
+            ];
+            $this->resourceReplace($this->replace['tpl'], $admin_exclusion); 
             
             $this->replace = (new Model($this->replace))->$method();
             

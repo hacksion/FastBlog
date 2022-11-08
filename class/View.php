@@ -217,9 +217,9 @@ class View
                 HTMLテンプレート
             </a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="'.$url.'/html/template/index">Index</a></li>
-                <li><a class="dropdown-item" href="'.$url.'/html/template/category">Category</a></li>
-                <li><a class="dropdown-item" href="'.$url.'/html/template/content">Content</a></li>
+                <li><a class="dropdown-item" href="'.$url.'/html/template/index">ホーム</a></li>
+                <li><a class="dropdown-item" href="'.$url.'/html/template/category">カテゴリー</a></li>
+                <li><a class="dropdown-item" href="'.$url.'/html/template/content">コンテンツ</a></li>
             </ul>
             </li>
             ';
