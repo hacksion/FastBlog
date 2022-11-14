@@ -1,15 +1,11 @@
 <?php
 /******************************
- PDOラッパークラス
+ PDO wrapper
 *******************************/
 namespace TM;
 
 abstract class DBConf
 {
-    /**
-    * queryのアクセスタイプ
-    * @access_type array
-    */
     private $access_type = [
         'query',
         'update',
@@ -20,22 +16,10 @@ abstract class DBConf
         'fullsql',
     ];
 
-    /**
-    *  pdoアクセスリソース
-    * @dbh
-    */
     protected $dbh;
 
-    /**
-    *  トランザクションを利用　デフォルト（利用しない）
-    * @transaction
-    */
     private $transaction = false;
 
-    /**
-    *  取得したレコードの形式　（1= stdClass  2= array） デフォルト 1
-    * @fetch_style
-    */
     protected $fetch_style = 1;
 
     public function __construct()
@@ -68,7 +52,6 @@ abstract class DBConf
     }
 
     /**
-    *  queryの実行
     * @final
     * @execute
     * @param string type 'query', 'update', 'insert', 'delete' ,'duplicate'

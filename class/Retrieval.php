@@ -4,7 +4,6 @@ class Retrieval extends DB
 {
     private $conditions = [];
     private $conditions_or = [];
-    //キーごとにカラムが入っており、キーが変わるとANDで繋ぐ
     private $conditions_group_or = [];
     private $like_column = [];
     private $like_value = '';
@@ -137,8 +136,6 @@ class Retrieval extends DB
             $sql .= empty($this->conditions) && empty($this->conditions_or) && empty($set_gor) ? ' WHERE ' : '';
             $target = [];
             foreach ($this->like_column as $wt) {
-                //$like_value = preg_replace('/( |　)/', '', trim($this->like_value));
-                //$target[] = 'REPLACE(REPLACE(' . $wt . '," ",""),"　","") LIKE "%' . $like_value . '%"';
                 $target[] = $wt . ' COLLATE utf8mb4_unicode_ci LIKE "%' . trim($this->like_value) . '%"';
             }
             $like = '(' . implode(' OR ', $target) . ')';
@@ -155,7 +152,6 @@ class Retrieval extends DB
         $this->records_count = count($this->all_records);
         if($this->limit){
             $sql .= ' LIMIT ' . ($this->page_num * $this->records_num) . ',' . $this->records_num;
-            //$csv_sql .= ' LIMIT ' . ($this->page_num * $this->records_num) . ',' . $this->records_num;
         }
         $this->setSqlValue($sql);
         $this->setCsvSqlValue($csv_sql);

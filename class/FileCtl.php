@@ -3,13 +3,10 @@ namespace TM;
 
 class FileCtl
 {
-    //ファイルまでのパス
     private $file_path = null;
 
-    // input[name=?] ? 部分名
     private $file_key = null;
 
-    // ファイル名　拡張子なし
     private $file_name = null;
 
     private $permit_num = 0755;
@@ -18,117 +15,50 @@ class FileCtl
 
     private $file_size = 0;
 
-    //選択ファイル種類
     private $file_type = [];
 
-    //新規作成ファイル名 拡張子なし
     private $make_file_name = null;
 
-    /**
-    *
-    * @setFileKey
-    *
-    * @param string ファイルのキー名
-    * @return void
-    */
     public function setFileKey($value)
     {
         $this->file_key = $value;
     }
 
-    /**
-    *
-    * @setFilePath
-    *
-    * @param string ファイルのサーバーパス
-    * @return void
-    */
     public function setFilePath($value)
     {
         $this->file_path = $value;
     }
-    /**
-    *
-    * @setFileName
-    *
-    * @param string ファイル名（拡張子なし）
-    * @return void
-    */
+
     public function setFileName($value)
     {
         $this->file_name = $value;
     }
 
-    /**
-    *
-    * @setMakeFileName
-    *
-    * @param string 新規ファイル名（拡張子なし）
-    * @return void
-    */
     public function setMakeFileName($value)
     {
         $this->make_file_name = $value;
     }
 
-    /**
-    *
-    * @setFileSize
-    *
-    * @param string 最大ファイルサイズ　（バイト数）
-    * @return void
-    */
     public function setFileSize($value)
     {
         $this->file_size = $value;
     }
 
-    /**
-    *
-    * @setFileType
-    *
-    * @param array ファイルアップ可能拡張子
-    * @return void
-    */
     public function setFileType($value)
     {
         $this->file_type = $value;
     }
 
-    /**
-    *
-    * @setPermit
-    *
-    * @param string 権限（４桁数字　0755）
-    * @return void
-    */
     public function setPermit($value)
     {
         $this->permit_num = $value;
     }
 
-    /**
-    *
-    * @setChmod
-    *
-    * @param bool ファイル権限変更の場合はtrue
-    * @return void
-    */
     public function setChmod($value)
     {
         $this->chmod_command = $value;
     }
 
-    /**
-    *
-    *指定ディレクトリーないオープンにしてファイルをすべて取得
-    *
-    * @openDir
-    *
-    * @param string $path　オープンにするディレクトリーまでのサーバパス
-    * @param string $sort　ディレクトリー内のファイルをソートする　（a or k） k:default
-    * @return array
-    */
     public function openDir($path, $sort)
     {
         $result = [];
@@ -159,14 +89,6 @@ class FileCtl
         return $result;
     }
 
-    /**
-    *
-    *ディレクトリー内ファイルの存在チェック
-    *
-    * @fileExist
-    *
-    * @return array
-    */
     public function fileExist()
     {
         $result = [];
@@ -189,14 +111,6 @@ class FileCtl
         return $result;
     }
 
-    /**
-    *
-    *ファイルアップロードチェック(アップロードがあれば)
-    *
-    * @fileUploadCheck
-    *
-    * @return bool
-    */
     public function fileUploadCheck()
     {
         $result = false;
@@ -215,14 +129,6 @@ class FileCtl
         return $result;
     }
 
-    /**
-    *
-    *ファイル名セット
-    *
-    * @newFileName
-    *
-    * @return bool
-    */
     public function newFileName()
     {
         $result = false;
@@ -234,15 +140,6 @@ class FileCtl
         return $result;
     }
 
-    /**
-    *
-    *tmpにあるデータを移動させる
-    *
-    * @moveFile
-    *
-    * @param string $new_file_name ファイルのを変更したい場合
-    * @return bool
-    */
     public function moveFile($new_file_name)
     {
         $result = false;
@@ -262,14 +159,6 @@ class FileCtl
         return $result;
     }
 
-    /**
-    *
-    *ファイル削除
-    *
-    * @deleteFile
-    *
-    * @return bool
-    */
     public function deleteFile()
     {
         $result = false;
@@ -279,14 +168,6 @@ class FileCtl
         return $result;
     }
 
-    /**
-    *
-    *ディレクトリー一括削除
-    *
-    * @deleteDir
-    *
-    * @return bool
-    */
     public function deleteDir()
     {
         $result = false;
@@ -303,15 +184,6 @@ class FileCtl
         return $result;
     }
 
-    /**
-    *
-    *ディレクトリーないすべてのディレクトリー・ファイル一括削除
-    *
-    * @unlinkRecursive
-    *
-    * @param string $this_dir trueをセットすると自身のディレクトリーも削除する　false は自身のディレクトリーの中だけを削除
-    * @return bool
-    */
     public function unlinkRecursive($this_dir=false)
     {
         $result = false;
@@ -336,15 +208,6 @@ class FileCtl
         return $result;
     }
 
-    /**
-    *
-    *ディレクトリー内ファイル名取得
-    *
-    * @dirFileName
-    *
-    * @param string $file_type 指定した拡張子があればセットする
-    * @return string
-    */
     public function dirFileName($file_type)
     {
         $result = '';
@@ -365,15 +228,6 @@ class FileCtl
         return $result;
     }
 
-    /**
-    *
-    *ログ記録
-    *
-    * @logFile
-    *
-    * @param string $log ログファイルとして追記していく
-    * @return string
-    */
     public function logFile($log)
     {
         if (!file_exists($this->file_path)) {
@@ -386,17 +240,6 @@ class FileCtl
         return $this->file_path;
     }
 
-    /**
-    *
-    *Zipファイルを作成する
-    *
-    * @zipExec
-    *
-    * @param array $files 複数のファイル名を配列としてセットする
-    * @param string $download trueならばダウンロード
-    * @param string $delete trueならばダウンロード後Zipファイル削除
-    * @return void
-    */
     public function zipExec(array $files, $download=true, $delete=false)
     {
         if ($this->file_path && $this->file_name && $files) {
@@ -411,15 +254,6 @@ class FileCtl
         }
     }
 
-    /**
-    *
-    *圧縮後のファイルとそのZIPを削除
-    *
-    * @deleteFilesAndZip
-    *
-    * @param array $files 複数のファイル名を配列としてセットする
-    * @return void
-    */
     public function deleteFilesAndZip(array $files)
     {
         if ($this->file_path && $this->file_name) {
@@ -430,15 +264,6 @@ class FileCtl
         }
     }
 
-
-    /**
-    *
-    *保存先からダウンロード
-    *
-    * @downloadExec
-    *
-    * @return bool
-    */
     public function downloadExec()
     {
         if ($this->file_path && $this->file_name) {
@@ -464,14 +289,6 @@ class FileCtl
         }
     }
 
-    /**
-    *
-    *ストリームでダウンロード
-    *
-    * @downloadExec
-    *
-    * @return bool
-    */
     public function downloadStExec(array $data)
     {
         if ($data && $this->file_name) {

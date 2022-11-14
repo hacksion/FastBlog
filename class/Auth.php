@@ -3,26 +3,9 @@ namespace TM;
 
 class Auth extends DB
 {
-    /**
-     * セッションキー名
-     *
-     * @var string
-     */
     private $session_name = '';
-
-    /**
-     * return 型
-     *
-     * @var string
-     */
     private $format = 'json';
 
-    /**
-     * コンストラクター
-     *
-     * @param string セッション名
-     * @return void
-     */
     public function __construct(string $format='json')
     {
         parent::__construct();
@@ -30,13 +13,6 @@ class Auth extends DB
         $this->session_name = KEY_NAME['SESSION'];
     }
 
-    /**
-     * ログイン実行
-     *
-     * @param string アカウント
-     * @param string パスワード
-     * @return bool セッション
-     */
     public function loginExec(string $account, string $passwd, $request_url=null)
     {
         unset($_SESSION[$this->session_name]);
@@ -67,11 +43,6 @@ class Auth extends DB
         return $this->format == 'json' ? json_encode($result, JSON_UNESCAPED_UNICODE):$result;
     }
 
-    /**
-     * ログイン承認チェック
-     *
-     * @return bool 検証結果
-     */
     public function checkExec()
     {
         $result = [
@@ -98,29 +69,17 @@ class Auth extends DB
         return $this->format == 'json' ? json_encode($result, JSON_UNESCAPED_UNICODE):$result;
     }
 
-     /**
-     * CSRFトークンの生成
-     *
-     * @return string トークン
-     */
     private function generateToken():string
     {
         return hash('sha256', session_id());
     }
 
-    /**
-    * logout
-    *
-    */
     public function logout():void
     {
         unset($_SESSION[ 'msg' ]);
         unset($_SESSION[$this->session_name]);
     }
 
-    // *****************************************
-    // ワンタイムトークンの生成
-    // *****************************************
     public function createToken()
     {
     	$ipad = hash( 'sha256', getenv('REMOTE_ADDR') );
@@ -129,9 +88,6 @@ class Auth extends DB
     	return hash( 'sha256', $ipad.$time.$rand );
     }
 
-    // *****************************************
-    // トークンの半券を取得
-    // *****************************************
     public function getHarfToken()
     {
     	$original_token = $this->createToken();
@@ -140,9 +96,6 @@ class Auth extends DB
     	return substr( $original_token, 0, 10 );
     }
 
-    // *****************************************
-    // トークンの照合
-    // *****************************************
     public function checkToken( $harf_token )
     {
     	return strcmp( $_SESSION['OriginalToken'], $harf_token.$_SESSION['HarfToken'] );

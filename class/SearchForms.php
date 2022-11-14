@@ -98,20 +98,13 @@ class SearchForms
         ';
         return $result;
     }
-    /**
-    *　searchForm共通部分
-    *
-    * @searchFormBtn
-    *
-    * @return HTML
-    */
+
     public function searchFormBtn($add)
     {
         return '
         <a href="" class="btn btn-secondary btn-sm me-2 search_reset" data-reset="'.$this->session_name.'" title="Reset"><i class="fa-solid fa-rotate-left"></i></a>'.$add;
     }
 
-    //受け取ったPOST処理セッション
     public function setPostSqlSession($options)
     {
         $post = $options['post'];
@@ -131,27 +124,27 @@ class SearchForms
             'conditions_gor' => [],
             'like_value' => $like_value
         ];
-        //ソート基準カラムをセット
+        //sort column
         if(!empty($post[$post['input_c']])){
             $result['order_by'] = '`'.$table_name.'`.`'.$post[$post['input_c']].'`';
             $this->setSS($post['input_c'], $post[$post['input_c']]);
         }
-        //ソートをセット
+        //sort set
         if(!empty($post[$post['input_s']])){
             $result['order_sort'] = $post[$post['input_s']];
             $this->setSS($post['input_s'], $post[$post['input_s']]);
         }
-        //１ページで表示する件数をセット
+        //Set the number of items to display on one page
         if(!empty($post[$post['input_sp']])){
             $result['view_count'] = $post[$post['input_sp']];
             $this->setSS($post['input_sp'], $post[$post['input_sp']]);
         }
-        //現在のページナンバーをセット
+        //set current page number
         if(!empty($post[$post['input_p']])){
             $result['page_num'] = $post[$post['input_p']];
             $this->setSS($post['input_p'], $post[$post['input_p']]);
         }
-        //キーワード検索でリクエストがあった場合セット
+        //Set if requested by keyword search
         if(!empty($post[$post['input_w']])){
             $result['like_value'] = $post[$post['input_w']];
             $this->setSS($post['input_w'], $post[$post['input_w']]);
@@ -163,12 +156,11 @@ class SearchForms
         return $result;
     }
 
-    //キーワード検索
     public function w($options=[])
     {
         return '<input type="text" class="form-control form-control-sm w-25" placeholder="'.(isset($options['placeholder']) ? $options['placeholder']:'').'" name="w" value="'.$this->getSS('w', (isset($options['default']) ? $options['default']:'')).'">';
     }
-    //カテゴリー検索
+    
     public function cat($options=[])
     {
         $pls = isset($options['placeholder']) ? $options['placeholder']:'';

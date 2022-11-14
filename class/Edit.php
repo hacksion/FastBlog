@@ -65,7 +65,6 @@ class Edit
     {
         if($this->result['finish'] == 1){
             if($this->result['id']){
-                //更新
                 $this->result['result'] = $this->DB->update($this->result['table'], ['id' => $this->result['id']], $this->records);
                 $this->result['id_num'] = $this->result['id'];
                 $this->result['data_id'] = $this->result['id'];
@@ -124,23 +123,15 @@ class Edit
                             $width = 300;
                             $height = 300;
                         }
-                        // オリジナルのサイズ取得
                         $width_org = $Imagick->getImageWidth();
                         $height_org = $Imagick->getImageHeight();
-                        // 縮小比率を計算
                         $ratio = $width_org / $height_org;
                         if ($width / $height > $ratio) {
                             $width = $height * $ratio;
                         } else {
                             $height = $width / $ratio;
                         }
-                        // 縮小実行
                         $Imagick->scaleImage($width, $height);
-                        // 保存
-                        //既存の画像圧縮は
-                        // $im = new Imagick('test.jpg');
-                        // $im->setImageCompressionQuality(10);
-                        // $im->writeImage('test_1.jpg');
                         $Imagick->setCompressionQuality(80);
                         if($new_name == 'thumbnail'){
                             $thumb_s = 's_'.$new_name.'.'.$ret[2];
@@ -181,13 +172,8 @@ class Edit
                         ['id' => 1],
                         ['article_modified' => $modified_date]
                     );
-                    // h2 type
-                    //preg_match_all('/<h2(.*?)>(.*?)<\/h2>/i', $this->records['html'], $matches);
-
-                    // h2,h3 type
                     preg_match_all('/<h[1-3]>(.*?)<\/h[1-3]>/i', $this->records['html'], $matches);
                     if($matches){
-                        // h2,h3 type
                         $rep_value = [];
                         $h = 2;
                         $i = 0;
@@ -215,8 +201,7 @@ class Edit
                             ]
                         );
                     }
-                    //sitemap更新
-                    //category content
+                    //sitemap create
                     $sitemap = new SitemapGenerator;
                     $site_records = $this->DB->query('SELECT `modified`,`page` FROM `category`', []);
                     if($site_records){

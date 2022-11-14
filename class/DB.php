@@ -136,7 +136,6 @@ class DB extends DBConf
         return implode(',', $result);
     }
 
-    //指定したカラム名のユニークな最後の番号を出す
     public function getUniqNum(string $table_name, string $target_column, string $conditions):int
     {
         $result = 0;

@@ -46,7 +46,6 @@ try {
             $msg = $replace['SEND_TRUE'];
             $result = 1;
 
-            //送信内容確認メール
             $mail_body_header = "---- 以下お問合せ内容です ----\n\n";
             $PHPMailer->Subject     = $site[0]->site_name.'へのお問い合わせがありがとうございます';
             $PHPMailer->Body        = $mail_body_header.$mail_body;

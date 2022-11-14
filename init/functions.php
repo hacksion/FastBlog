@@ -1,5 +1,4 @@
 <?php
-/*****************  オリジナル Classオートローダー ********************/
 function autoloadClass($class){
     $class_namespace = explode("\\", $class);
     $class_file_name = SERVER_DIR['CLASS'] . end($class_namespace) . '.php';
@@ -10,7 +9,7 @@ function autoloadClass($class){
         return false;
     }
 }
-/*****************  debug trace ********************/
+
 function debug(){
     $arr = debug_backtrace();
     echo '<div>' . $arr[ 0 ][ 'file' ] . '  ' . $arr[ 0 ][ 'line' ] . '</div>';
@@ -21,7 +20,7 @@ function debug(){
     }
     echo '</pre>';
 }
-/*****************  DAYOFWEEK ********************/
+
 function dayOfWeek($lang = 'ja'){
     $result = [
         'en' => [
@@ -45,20 +44,17 @@ function dayOfWeek($lang = 'ja'){
     ];
     return $result[$lang];
 }
-/*****************  hex2rgb ********************/
+
 function hex2rgb ( $hex ) {
     if ( substr( $hex, 0, 1 ) == "#" ) $hex = substr( $hex, 1 ) ;
     if ( strlen( $hex ) == 3 ) $hex = substr( $hex, 0, 1 ) . substr( $hex, 0, 1 ) . substr( $hex, 1, 1 ) . substr( $hex, 1, 1 ) . substr( $hex, 2, 1 ) . substr( $hex, 2, 1 ) ;
     return array_map( "hexdec", [ substr( $hex, 0, 2 ), substr( $hex, 2, 2 ), substr( $hex, 4, 2 ) ] ) ;
 }
 
-/*****************  numberK ********************/
-//数字が1000以上ならば「k」として表示する
 function numberK($number=0){
     return $number > 1000 ? ($number / 1000).'k':number_format($number);
 }
 
-//tr - th データを作成 $key=0 array key $key=1 array value $loop 0 = start 1 = end
 function trth($loop=[1,2], $rep=[], $ext = '')
 {
     $result = '<tr>';
@@ -68,7 +64,7 @@ function trth($loop=[1,2], $rep=[], $ext = '')
     $result .= '</tr>';
     return $result;
 }
-//tr - td データを作成
+
 function trtd($data, $loop=[1,2], $kflag=false)
 {
     $result = '<tr>';
@@ -82,7 +78,7 @@ function trtd($data, $loop=[1,2], $kflag=false)
     $result .= '</tr>';
     return $result;
 }
-//文字列を丸める
+
 function strWidth($text, $width = 10)
 {
     $result = "";
@@ -91,6 +87,7 @@ function strWidth($text, $width = 10)
     }
     return $result;
 }
+
 function colFactory($column, $table=null)
 {
     $result = [];
@@ -99,12 +96,10 @@ function colFactory($column, $table=null)
     }
     return implode(',', $result);
 }
-//Exif情報のOrientationによって画像を回転して保存
+
 function imageOrientation($filename, $orientation)
 {
-    //画像ロード
     $image = imagecreatefromjpeg($filename);
-    //回転角度
     $degrees = 0;
     switch ($orientation) {
         case 1:		//回転なし（↑）
@@ -133,16 +128,16 @@ function imageOrientation($filename, $orientation)
             $mode = IMG_FLIP_HORIZONTAL;
             break;
     }
-    //反転(2,7,4,5)
+
     if (isset($mode)) {
         $image = imageflip($image, $mode);
     }
-    //回転(8,3,6,7,5)
+
     if ($degrees > 0) {
         $image = imagerotate($image, $degrees, 0);
     }
-    //保存
+
     ImageJPEG($image, $filename);
-    //メモリ解放
+
     imagedestroy($image);
 }
