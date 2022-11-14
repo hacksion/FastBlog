@@ -1,8 +1,12 @@
-let asyncUrl = document.querySelector('script[data-asyncurl]').dataset.asyncurl;
-let dataUrl = document.querySelector('script[data-url]').dataset.url;
-let dataImagesUrl = document.querySelector('script[data-imagesurl]').dataset.imagesurl;
 ////////////////////////////////////////////////
-//  sweetalert2 default
+//  URL
+////////////////////////////////////////////////
+let adminUrl = document.querySelector('script[data-adminurl]') ? document.querySelector('script[data-adminurl]').dataset.adminurl:'';
+let asyncUrl = document.querySelector('script[data-asyncurl]') ? document.querySelector('script[data-asyncurl]').dataset.asyncurl:'';
+let dataUrl = document.querySelector('script[data-url]') ? document.querySelector('script[data-url]').dataset.url:'';
+let dataImagesUrl = document.querySelector('script[data-imagesurl]') ? document.querySelector('script[data-imagesurl]').dataset.imagesurl:'';
+////////////////////////////////////////////////
+//  sweetalert
 ////////////////////////////////////////////////
 const swalOption = (icon, text) => {
     return {
@@ -11,41 +15,6 @@ const swalOption = (icon, text) => {
         allowOutsideClick: false
     }
 }
-////////////////////////////////////////////////
-//  getBrowser
-////////////////////////////////////////////////
-const getBrowser = () => {
-    let result = 'unknow';
-    let ua = window.navigator.userAgent.toLowerCase();
-    if (ua.indexOf('msie') != -1 ||
-        ua.indexOf('trident') != -1) {
-        result = 'ie';
-    } else if (ua.indexOf('edge') != -1) {
-        result = 'edge';
-    } else if (ua.indexOf('chrome') != -1) {
-        result = 'chrome';
-    } else if (ua.indexOf('safari') != -1) {
-        result = 'safari';
-    } else if (ua.indexOf('firefox') != -1) {
-        result = 'firefox';
-    } else if (ua.indexOf('opera') != -1) {
-        result = 'opera';
-    }
-    return result;
-};
-////////////////////////////////////////////////
-//  getDevice
-////////////////////////////////////////////////
-const getDevice = () => {
-    let ua = navigator.userAgent;
-    if (ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0) {
-        return 'sp';
-    }
-    if (ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0) {
-        return 'tab';
-    }
-    return 'other';
-};
 ////////////////////////////////////////////////
 //  XMLHttpRequest
 ////////////////////////////////////////////////
@@ -65,12 +34,224 @@ const XMLHttpRequestCreate = () => {
     return null;
 }
 ////////////////////////////////////////////////
+//  Convert full-width numbers to half-width numbers
+////////////////////////////////////////////////
+const iNumbers = () => {
+    const repFullToHalfNum = s => {
+        for (let i = 0; i < 10; i++) {
+            s = s.replace(new RegExp(new Array('０', '１', '２', '３', '４', '５', '６', '７', '８', '９')[i], 'g'), i);
+        }
+        return s;
+    }
+    [].slice.call(document.getElementsByClassName('i_numbers')).forEach(v => {
+        v.onblur = e => {
+            let n = repFullToHalfNum(e.target.value).replace(/[^0-9\.-]+/g, '');
+            e.target.value = n.match(/\d+/) ? n : '';
+        }
+    });
+}
+////////////////////////////////////////////////
+//  return HTML escape character
+////////////////////////////////////////////////
+const unescapeHTML = (str) => {
+    return str.replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&nbsp;/g, " ")
+        .replace(/&quot;/g, '"')
+        .replace(/&apos;/g, "'")
+        .replace(/&#13;/g, "\r")
+        .replace(/&#10;/g, "\n");
+}
+////////////////////////////////////////////////
+//  Convert full-width alphanumeric characters to half-width alphanumeric characters
+////////////////////////////////////////////////
+const repFullToHalfAlphNumeric = value => {
+    return value.replace(/[Ａ-Ｚａ-ｚ０-９]/g, s => {
+        return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+    });
+}
+////////////////////////////////////////////////
+//  remove slash from string
+////////////////////////////////////////////////
+const unslash = () => {
+    [].slice.call(document.getElementsByClassName('unslash')).forEach( v => {
+        v.onblur = e => {
+            let rep = e.target.value.replace(/\//g, '');
+            if(rep == 'api'){
+                rep = '';
+            }else if(rep == adminUrl.replace(/\//g, '')){
+                rep = '';
+            }
+            e.target.value = rep;
+        }
+    });
+}
+////////////////////////////////////////////////
+//  flatpickr　setting
+////////////////////////////////////////////////
+const setFlatpicker = (default_date = null, lang = 'en') => {
+    let _flatpickr = [].slice.call(document.getElementsByClassName('flatpickr'));
+    _flatpickr.forEach((v, i) => {
+        let flp_config = {
+            disableMobile: true,
+            locale: lang
+        };
+        flp_config['allowInput'] = v.dataset.allowinput ? true : false;
+        flp_config['enableTime'] = v.dataset.time ? true : false;
+        flp_config['mode'] = v.dataset.range ? 'range' : 'single';
+        flp_config['defaultDate'] = v.value.length > 0 ? v.value : default_date ? default_date : null;
+        let f = v.flatpickr(flp_config);
+        let c = document.getElementsByClassName('flatpickr_clear_value')[i];
+        if (c) {
+            c.onclick = () => {
+                f.clear();
+            }
+        }
+    });
+}
+////////////////////////////////////////////////
+//  min-height
+////////////////////////////////////////////////
+const bodyHeight = () => {
+    let h = (window.innerHeight);
+    let min_height = document.getElementsByClassName('min_height')[0];
+    if (min_height) {
+        min_height.style.minHeight = `${(h)}px`;
+    }
+}
+////////////////////////////////////////////////
+//  sp nav click
+////////////////////////////////////////////////
+const spNav = () => {
+    let btn = document.querySelector('.btn-trigger');
+    let navbar = document.querySelector('.navbar-nav');
+    if(btn){
+        btn.onclick = e => {
+            if(e.target.classList.contains('active')){
+                e.target.classList.remove('active');
+                navbar.style.display = 'none';
+            }else{
+                e.target.classList.add('active');
+                navbar.style.display = 'block';
+            }
+        }
+    }
+}
+////////////////////////////////////////////////
+//  logout event
+////////////////////////////////////////////////
+const logout = () => {
+    [].slice.call(document.getElementsByClassName('logout_btn')).forEach(v => {
+        v.addEventListener('click', e => {
+            e.preventDefault();
+            e.stopPropagation();
+            let fdo = new FormData();
+            fdo.append("token", "logout");
+            asyncPost(`${asyncUrl}logout.php`, fdo, null, json => {
+                if (json.result > 0) {
+                    location.href = dataUrl + adminUrl;
+                    return;
+                }
+                Swal.fire(swalOption('error', json.msg));
+            });
+        });
+    });
+}
+////////////////////////////////////////////////
+//  json parse
+////////////////////////////////////////////////
+const jsonParse = object => {
+    return JSON.parse(JSON.stringify(object));
+}
+////////////////////////////////////////////////
+//  getData
+////////////////////////////////////////////////
+const getData = () => {
+    [].slice.call(document.getElementsByClassName('get_data')).forEach(get_data => {
+        let xhr = XMLHttpRequestCreate();
+        xhr.open('POST', `${asyncUrl}get_data.php`);
+        let fdo = new FormData();
+        fdo.append("method", get_data.dataset.method);
+        if (get_data.dataset.option) {
+            fdo.append("option", get_data.dataset.option);
+        }
+        xhr.send(fdo);
+        xhr.onload = () => {
+            if(xhr.status == 200){
+                new Promise(resolve => {
+                    get_data.innerHTML = xhr.responseText;
+                    resolve();
+                }).then(() => {
+                    memoModal();
+                });
+            }
+        };
+        xhr.onerror = error => {
+            console.log(error);
+        };
+    });
+}
+////////////////////////////////////////////////
+//  sort record
+////////////////////////////////////////////////
+const sortRecord = () => {
+    let result_list = document.getElementById('list_area');
+    let sort_target = [].slice.call(document.getElementsByClassName('sort_target'));
+    if (result_list && sort_target.length > 0) {
+        Sortable.create(result_list, {
+            handle: '.fa-arrows-alt-v',
+            animation: 110,
+            group: "save",
+            store: {
+                set: function(sortable) {
+                    let fdo = new FormData();
+                    fdo.append("method", "sort");
+                    fdo.append("id", sortable.toArray());
+                    fdo.append("table", result_list.dataset.table);
+                    asyncPost(`${asyncUrl}sort_record.php`, fdo, null, json => {
+                        if (json.result > 0) {
+                            new Promise(resolve => {
+                                resolve();
+                            }).then(() => {
+                                [].slice.call(document.getElementsByClassName('sort_num')).forEach((elm, i) => {
+                                    elm.textContent = i + 1;
+                                });
+                            });
+                            return;
+                        }
+                        Swal.fire(swalOption('error', 'Reload Rrowser'));
+                    });
+                }
+            }
+        });
+    }
+}
+////////////////////////////////////////////////
+//  table analysis
+////////////////////////////////////////////////
+const tableAnalysis = () => {
+    [].slice.call(document.querySelectorAll('table.analysis')).forEach( e => {
+        let data = [];
+        let max = 0;
+        [].slice.call(e.getElementsByClassName('data')).forEach( (d, i) => {
+            data.push(d.textContent);
+        });
+        max = parseInt(Math.max(...data));
+        [].slice.call(e.getElementsByClassName('data')).forEach( (d, i) => {
+            if(parseInt(d.textContent) == max){
+                d.innerHTML = '<span class="text-danger">'+ d.textContent +'</span>';
+            }
+        });
+    })
+}
+////////////////////////////////////////////////
 //  async post
 ////////////////////////////////////////////////
 const asyncPost = (url, form_obj, reload = null, callback = null) => {
     let result = {
         "result": 0,
-        "msg": "default error"
+        "msg": "default error",
+        "class": "false"
     };
     let xhr = XMLHttpRequestCreate();
     xhr.open("POST", url, true);
@@ -97,7 +278,7 @@ const asyncPost = (url, form_obj, reload = null, callback = null) => {
         result.msg = error;
         if (callback)callback(result);
     }
-};
+}
 ////////////////////////////////////////////////
 //  formData create *
 ////////////////////////////////////////////////
@@ -118,9 +299,9 @@ const createFormData = form_objs => {
         });
     }
     return form_data_obj;
-};
+}
 ////////////////////////////////////////////////
-//  現在のページ
+//  current page
 ////////////////////////////////////////////////
 const navCurrentLink = () => {
     let id = document.querySelector('body[data-cat]').dataset.cat;
@@ -136,26 +317,26 @@ const navCurrentLink = () => {
             }
         });
     }
-};
+}
 ////////////////////////////////////////////////
-//  イージング
+//  easing
 ////////////////////////////////////////////////
 const easingEaseOutCubic = (current_time, start_value, change_value, duration) => {
     current_time /= duration;
     current_time--;
     return change_value * (current_time * current_time * current_time + 1) + start_value;
-};
+}
 ////////////////////////////////////////////////
-//  アニメーション
+//  animation
 ////////////////////////////////////////////////
 const animate = (elm, property, strat, end, time, unit = '') => {
     let frame_rate = 0.03; // 60 FPS 0.06 30FPS 0.03
     let begin = new Date() - 0;
-    let from = strat; // 初期値
-    let distance = end == 0 ? -strat : end; // 変動値
-    let duration = time; // 継続時間
+    let from = strat;
+    let distance = end == 0 ? -strat : end;
+    let duration = time;
     let id = setInterval(() => {
-        let time = new Date() - begin; // 経過時間
+        let time = new Date() - begin;
         let current = easingEaseOutCubic(time, from, distance, duration);
         if (time > duration) {
             clearInterval(id);
@@ -165,7 +346,7 @@ const animate = (elm, property, strat, end, time, unit = '') => {
     }, 1 / frame_rate);
 }
 ////////////////////////////////////////////////
-//  display=none 要素の高さ取得
+//  Get height of hidden element
 ////////////////////////////////////////////////
 const getHideElmHeight = elm => {
     let copy_box = elm.cloneNode(true);
@@ -176,22 +357,19 @@ const getHideElmHeight = elm => {
     return cph;
 }
 ////////////////////////////////////////////////
-//  スクロール関数
-////////////////////////////////////////////////
-const scrollToFunc = (element, to, duration) => {
-    if (duration <= 0) return;
-    let difference = to - element.scrollTop;
-    let per_tick = difference / duration * 10;
-    setTimeout(() => {
-        element.scrollTop = element.scrollTop + per_tick;
-        if (element.scrollTop == to) return;
-        scrollToFunc(element, to, duration - 10);
-    }, 10);
-}
-////////////////////////////////////////////////
-//  スクロールイベント　toTpoボタン
+//  scroll event
 ////////////////////////////////////////////////
 const scrollFunc = () => {
+    const scrollToFunc = (element, to, duration) => {
+        if (duration <= 0) return;
+        let difference = to - element.scrollTop;
+        let per_tick = difference / duration * 10;
+        setTimeout(() => {
+            element.scrollTop = element.scrollTop + per_tick;
+            if (element.scrollTop == to) return;
+            scrollToFunc(element, to, duration - 10);
+        }, 10);
+    }
     let to_top = document.getElementById('to_top');
     if (to_top) {
         to_top.style.position = 'fixed';
@@ -215,7 +393,6 @@ const scrollFunc = () => {
             }
         }, false);
     }
-
 }
 ////////////////////////////////////////////////
 //  navbar search
@@ -246,7 +423,6 @@ const navSearchBtn = () => {
             document.getElementById('search_result').innerHTML = '';
         }
     }
-
 }
 ////////////////////////////////////////////////
 //  navbar search result
@@ -260,7 +436,7 @@ const navSearchBtnInput = () => {
     }
 }
 ////////////////////////////////////////////////
-//  入力フォームエンター無効化
+//  Input form enter key invalidation
 ////////////////////////////////////////////////
 const enterFalse = () => {
     document.onkeypress = e => {
@@ -271,7 +447,7 @@ const enterFalse = () => {
     }
 }
 ////////////////////////////////////////////////
-//  アクセスクッキー
+//  cookie
 ////////////////////////////////////////////////
 const getAccessCookie = () => {
     let page = location.pathname.split('/').filter(Boolean).slice(-1)[0];
@@ -297,7 +473,7 @@ const getAccessCookie = () => {
     }
 }
 ////////////////////////////////////////////////
-//  離脱モダール
+//  withdrawal modal
 ////////////////////////////////////////////////
 const withdrawalModal = (modal_id, timer = 3600000) => {
     const getOnetimeCookie = timer => {
@@ -329,10 +505,9 @@ const withdrawalModal = (modal_id, timer = 3600000) => {
             }
         });
     }
-
 }
 ////////////////////////////////////////////////
-//  banner
+//  ad banner
 ////////////////////////////////////////////////
 const adBanner = () => {
     let admodal_elm = document.getElementById('admodal_elm');
@@ -348,7 +523,7 @@ const adBanner = () => {
     }
 }
 ////////////////////////////////////////////////
-//  ページ内リンク
+//  In-page link
 ////////////////////////////////////////////////
 const pageLink = () => {
     [].slice.call(document.getElementsByClassName('p_link')).forEach( v => {
@@ -365,13 +540,12 @@ const pageLink = () => {
     });
 }
 ////////////////////////////////////////////////
-//  コンタクトフォーム
+//  contact form event
 ////////////////////////////////////////////////
 const contactForm = () => {
     let contact_form = document.getElementById('contact_form');
     let forms = document.forms.contact_form;
     if(contact_form && forms){
-
         contact_form.onclick = e => {
             let check_msg = document.getElementById('contact_form_check');
             check_msg = check_msg ? check_msg.textContent:'Confirmation';
@@ -410,4 +584,4 @@ const contactForm = () => {
             forms.classList.add('was-validated');
         }
     }
-};
+}

@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
         'nav_class' : 'search_result_nav',
         'lang' : document.documentElement.lang,
     });
-    // NRL.getList();
     NRL.searchBtnEvt();
     NRL.searchReset();
 });

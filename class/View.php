@@ -136,7 +136,7 @@ class View
         <script defer src="https://kit.fontawesome.com/79dd3834cf.js" crossorigin="anonymous"></script>
         <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         
-        <script defer src="'.$this->replace['PUBLIC_URL']['JS'].'admin_function.js" data-asyncurl="'.$this->replace['PUBLIC_URL']['ASYNC'].'" data-adminurl="'.ADMIN_DIR.'/" data-url="'.$this->replace['url'].'" data-imagesurl="'.$this->replace['PUBLIC_URL']['IMG'].'"></script>
+        <script defer src="'.$this->replace['PUBLIC_URL']['JS'].'function.js" data-asyncurl="'.$this->replace['PUBLIC_URL']['ASYNC'].'" data-adminurl="'.ADMIN_DIR.'/" data-url="'.$this->replace['url'].'" data-imagesurl="'.$this->replace['PUBLIC_URL']['IMG'].'"></script>
         <script defer src="'.$this->replace['PUBLIC_URL']['JS'].'RecordList.js"></script>
         <script defer src="'.$this->replace['PUBLIC_URL']['JS'].'Sortable.js"></script>
         <script defer src="'.$this->replace['PUBLIC_URL']['JS'].'admin_edit.js"></script>
@@ -196,24 +196,24 @@ class View
         if(isset($this->replace['withdrawal_modal_flag']) && $this->replace['withdrawal_modal_flag'] == 1 && $auth == 1){
             $withdrawal_modal = '
             <li class="nav-item">
-                <a href="'.$url.'/withdrawal_modal" class="nav-link" data-body="withdrawal_modal_body">離脱モーダル設定</a>
+                <a href="'.$url.'/withdrawal_modal" class="nav-link" data-id="withdrawal_modal">離脱モーダル設定</a>
             </li>';
         }
         $contact = '';
         if(isset($this->replace['contact_flag']) && $this->replace['contact_flag'] == 1 && $auth == 1){
             $contact = '
             <li class="nav-item">
-                <a href="'.$url.'/smtp" class="nav-link" data-body="smtp_body">メール送信設定</a>
+                <a href="'.$url.'/smtp" class="nav-link" data-id="smtp">メール送信設定</a>
             </li>';
         }
 
-        $category = $auth == 1 ? '<li class="nav-item"><a href="'.$url.'/category" class="nav-link" data-body="category_body">カテゴリー</a></li>':'';
-        $sidenav = $auth == 1 ? '<li class="nav-item"><a href="'.$url.'/sidenav" class="nav-link" data-body="sidenav_body">サイドナビ</a></li>':'';
+        $category = $auth == 1 ? '<li class="nav-item"><a href="'.$url.'/category" class="nav-link" data-id="category">カテゴリー</a></li>':'';
+        $sidenav = $auth == 1 ? '<li class="nav-item"><a href="'.$url.'/sidenav" class="nav-link" data-id="sidenav">サイドナビ</a></li>':'';
         $template = '';
         if($auth == 1){
             $template = '
             <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-body="html_template">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-id="html">
                 HTMLテンプレート
             </a>
             <ul class="dropdown-menu">
@@ -224,10 +224,10 @@ class View
             </li>
             ';
         }
-        $css = $auth == 1 ? '<li class="nav-item"><a href="'.$url.'/css" class="nav-link" data-body="css_body">カスタムCSS</a></li>':'';
-        $dictionary = $auth == 1 ? '<li class="nav-item"><a href="'.$url.'/dictionary" class="nav-link" data-body="dictionary_body">言語設定</a></li>':'';
-        $account = $auth == 1 ? '<li class="nav-item"><a href="'.$url.'/account" class="nav-link" data-body="account_body">アカウント</a></li>':'';
-        $setting = $auth == 1 ? '<li class="nav-item"><a href="'.$url.'/setting" class="nav-link" data-body="setting_body">基本設定</a></li>':'';
+        $css = $auth == 1 ? '<li class="nav-item"><a href="'.$url.'/css" class="nav-link" data-id="css">カスタムCSS</a></li>':'';
+        $dictionary = $auth == 1 ? '<li class="nav-item"><a href="'.$url.'/dictionary" class="nav-link" data-id="dictionary">言語設定</a></li>':'';
+        $account = $auth == 1 ? '<li class="nav-item"><a href="'.$url.'/account" class="nav-link" data-id="account">アカウント</a></li>':'';
+        $setting = $auth == 1 ? '<li class="nav-item"><a href="'.$url.'/setting" class="nav-link" data-id="setting">基本設定</a></li>':'';
         $result = '
         <nav class="mt-2">
             <div class="text-center">
@@ -236,11 +236,11 @@ class View
             <div class="user">'.$icon.'</div>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a href="'.$url.'" class="nav-link" data-body="index_body">ダッシュボード</a>
+                    <a href="'.$url.'" class="nav-link" data-id="index">ダッシュボード</a>
                 </li>
                 '.$category.'
                 <li class="nav-item">
-                    <a href="'.$url.'/content" class="nav-link" data-body="content_body">コンテンツ</a>
+                    <a href="'.$url.'/content" class="nav-link" data-id="content">コンテンツ</a>
                 </li>
                 '.$sidenav.'
                 '.$withdrawal_modal.'

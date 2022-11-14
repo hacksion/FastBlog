@@ -342,12 +342,15 @@ nav {
             .nav-link {
                 color: $font-color;
                 padding: .3rem 0;
-                &.active,&:hover {
+            }
+            &.active,&:hover {
+                .nav-link {
                     color: $white;
                     background-color: $dark;
                     border-radius: .25rem;
                 }
             }
+            
         }
     }
     .user {
@@ -646,20 +649,6 @@ nav {
             z-index: 999;
             background-color: $light;
             width: 100%;
-        }
-    }
-    nav {
-        .navbar-nav {
-            .nav-item {
-                .nav-link {
-                    &.active {
-                        border-radius: 0;
-                        &:after{
-                            content: none;
-                        }
-                    }
-                }
-            }
         }
     }
 }

@@ -286,7 +286,7 @@ nav .navbar-nav .nav-item .nav-link {
   color: #1d212f;
   padding: 0.3rem 0;
 }
-nav .navbar-nav .nav-item .nav-link.active, nav .navbar-nav .nav-item .nav-link:hover {
+nav .navbar-nav .nav-item.active .nav-link, nav .navbar-nav .nav-item:hover .nav-link {
   color: #fff;
   background-color: #333333;
   border-radius: 0.25rem;
@@ -556,11 +556,5 @@ nav .user img {
     z-index: 999;
     background-color: #f7f7f7;
     width: 100%;
-  }
-  nav .navbar-nav .nav-item .nav-link.active {
-    border-radius: 0;
-  }
-  nav .navbar-nav .nav-item .nav-link.active:after {
-    content: none;
   }
 }

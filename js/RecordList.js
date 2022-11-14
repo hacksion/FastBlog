@@ -23,7 +23,6 @@ const RecordList = class {
         'method' : '',
         'file_size': 0
     }
-
     constructor(config, callback=null){
         for (let key in config) {
             this.init[key] = config[key];
@@ -36,7 +35,6 @@ const RecordList = class {
         this.input_s_elm = document.querySelector(`form[name=${this.init.form_name}] input[name=${this.init.input_s}]`);
         this.callback = callback;
     }
-
     getList() {
         let form_elm = document.querySelector(`form[name=${this.init.form_name}]`);
         let list_area = document.getElementById(this.init.list_area_id);
@@ -48,22 +46,18 @@ const RecordList = class {
             form.append("page", this.init.page);
             form.append("url", this.init.url);
             form.append("imagesurl", this.init.imagesurl);
-            
             list_area.innerHTML = this.loadingHTML();
             if(this.init.post_file){
                 let xhr = XMLHttpRequestCreate();
-
-                //console.log(this.init.post_file);
                 xhr.open('POST', this.init.post_file);
                 xhr.send(form);
                 xhr.onload = () => {
                     if(xhr.status == 200){
                         new Promise( (resolve, reject) => {
-                            //console.log(list_area,xhr.responseText);
                             list_area.innerHTML = xhr.responseText;
                             resolve(1);
                             reject(0);
-                        }).then( result => {
+                        }).then( e => {
                             this.sortBtn();
                             this.createPagerDom();
                             this.pageLinkEvt();
@@ -73,16 +67,12 @@ const RecordList = class {
                             console.log(reason);
                         });
                     }
-                };
+                }
                 xhr.onerror = error => {
                     console.log(error);
-                };
-                xhr.onprogress = event => {
-                    // event.loaded - ダウンロードされたバイト
-                    // event.lengthComputable = サーバが Content-Length ヘッダを送信した場合は true
-                    // event.total - トータルのバイト数(lengthComputable が true の場合)
-                    //console.log(`${event.loaded} byte`);
-                };
+                }
+                xhr.onprogress = e => {
+                }
             }
         }
     }
@@ -105,7 +95,6 @@ const RecordList = class {
         sort_btn.forEach( v => {
             v.style.cursor = 'pointer';
             v.onclick = e => {
-
                 new Promise( resolve => {
                     sort_btn.forEach( vv => {
                         vv.classList.remove('text-danger');
@@ -159,29 +148,24 @@ const RecordList = class {
     }
 
     createPagerDom(){
-
         let all_records = document.getElementById(this.init.all_records);
         let current_page = document.getElementById(this.init.current_page);
         let set_view_count = document.getElementById(this.init.set_view_count);
-
         let ul,a = 0,c = 0,s = 0;
         [].slice.call(document.getElementsByClassName(this.init.nav_class)).forEach( v => {
             v.innerHTML = '';
         });
-
         [].slice.call(document.getElementsByClassName(this.init.nav_class)).forEach( v => {
             a = parseInt(all_records.textContent);
             c = parseInt(current_page.textContent) + 1;
             s = parseInt(set_view_count.textContent);
-            //all_p_num が 1以上あればページャーを作る
-            let all_p_num = a < s ? 1:Math.ceil(a / s);
+            let all_p_num = a < s ? 1 : Math.ceil(a / s);
+            
             if(all_p_num > 1){
                 ul = document.createElement('ul');
                 ul.setAttribute('class', 'pagination pagination-sm my-2');
-                //１０ページ単位で表示
                 let ii = 1;
                 let last = ii + 9;
-
                 if(c > 10){
                     ii = c;
                     last = (ii + 9) > all_p_num ? all_p_num:(ii + 9);
@@ -189,11 +173,9 @@ const RecordList = class {
                     ii = all_p_num > 10 ? c:1;
                     last = (all_p_num - c) > 10 ? (c + 9):all_p_num;
                 }
-                //console.log('c='+c, 'all_p_num='+all_p_num, 'ii='+ii, 'last='+last);
-                //prevボタン作成
+                //　previous button
                 if(c > 1){
-                    //2ページ目から出す
-                    //最初
+                    // first page
                     let li = document.createElement('li');
                     li.setAttribute('class', 'page-item');
                     let span = document.createElement('i');
@@ -201,7 +183,7 @@ const RecordList = class {
                     span.setAttribute('data-pnum', 0);
                     li.appendChild(span);
                     ul.appendChild(li);
-                    //一つ前
+                    //　previous page
                     li = document.createElement('li');
                     li.setAttribute('class', 'page-item');
                     span = document.createElement('i');
@@ -210,7 +192,7 @@ const RecordList = class {
                     li.appendChild(span);
                     ul.appendChild(li);
                 }
-                //通常ボタン作成
+                //　page-number button
                 for(let i = ii; i <= last; i++){
                     let li = document.createElement('li');
                     li.setAttribute('class', 'page-item');
@@ -224,7 +206,7 @@ const RecordList = class {
                     li.appendChild(span);
                     ul.appendChild(li);
                 }
-                //nextボタン作成
+                // next page
                 if(c < all_p_num){
                     let li = document.createElement('li');
                     li.setAttribute('class', 'page-item');
@@ -233,7 +215,7 @@ const RecordList = class {
                     span.setAttribute('data-pnum', c);
                     li.appendChild(span);
                     ul.appendChild(li);
-                    //最後
+                    //　last page
                     li = document.createElement('li');
                     li.setAttribute('class', 'page-item');
                     span = document.createElement('i');
@@ -314,18 +296,6 @@ const RecordList = class {
                     resolve();
                 }).then( () => {
                     this.getList();
-                    // let scroll_elm = 'scrollingElement' in document ? document.scrollingElement:document.body;
-                    // let top_level = 0;
-                    // let search_list = document.getElementById(this.init.list_area_id);
-                    // if(search_list){
-                    //     let clientRect = search_list.getBoundingClientRect();
-                    //     top_level = clientRect.top;
-                    // }
-                    // scroll_elm.scrollTo({
-                    //     top: top_level - 100,
-                    //     left: 100,
-                    //     behavior: 'smooth'
-                    // });
                     this.searchBtnHideEvt(false);
                 });
             }

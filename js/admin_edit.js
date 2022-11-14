@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////
-//  エディット モーダル表示
+//  edit modal show
 ////////////////////////////////////////////////
 const editModal = (file_size=0) => {
     let edit_modal = document.getElementById('edit_modal');
@@ -40,7 +40,6 @@ const editModal = (file_size=0) => {
                     passwd.setAttribute('placeholder', '');
                 }
             }
-
             editCreate();
             selectFile(file_size);
             unslash();
@@ -48,7 +47,7 @@ const editModal = (file_size=0) => {
     }
 }
 ////////////////////////////////////////////////
-//  edit modal for json
+//  set edit modal (json)
 ////////////////////////////////////////////////
 const setDetailRecord = json => {
     resetArea();
@@ -84,7 +83,6 @@ const setDetailRecord = json => {
             setDetailImage('icon', json, icon_area);
         }
     });
-    //削除が可能な場合はボタンの表示がされる
     if(json.delete_record == 1){
         if(del_btn){
             del_btn.setAttribute('data-id', json.id.value);
@@ -97,7 +95,7 @@ const setDetailRecord = json => {
     }
 }
 ////////////////////////////////////////////////
-//  エディット 登録・更新
+//  edit modal post
 ////////////////////////////////////////////////
 const editCreate = () => {
     let edit_create = document.getElementById('edit_create');
@@ -115,7 +113,6 @@ const editCreate = () => {
                 fdo.append("html_lang", document.documentElement.lang);
                 fdo.append("url", dataUrl);
                 if (typeof CKEDITOR !== 'undefined') {
-
                     let html_col = ['html', 'footer_text'];
                     html_col.forEach(elm => {
                         if (document.querySelector('[name = "' + elm + '"]')) {
@@ -153,12 +150,11 @@ const editCreate = () => {
             forms.classList.add('was-validated');
         }
     }
-};
+}
 ////////////////////////////////////////////////
-//  エディット FILE 更新
+//  edit file
 ////////////////////////////////////////////////
 const editFile = () => {
-    console.log('edit file');
     let edit_file = document.getElementById('edit_file');
     let forms = document.forms.edit_file;
     if(edit_file && forms){
@@ -189,9 +185,9 @@ const editFile = () => {
             });
         }
     }
-};
+}
 ////////////////////////////////////////////////
-// レコード削除する
+// delete record
 ////////////////////////////////////////////////
 const deleteEditRecord = () => {
     let delete_edit_record = document.getElementById('delete_edit_record');
@@ -230,13 +226,11 @@ const deleteEditRecord = () => {
             });
         }
     }
-};
-
+}
 ////////////////////////////////////////////////
-//  エディットモーダルをリセットするエリア
+//  reset edit modal
 ////////////////////////////////////////////////
 const resetArea = () => {
-
     document.forms.edit_create.reset();
     document.forms.edit_create.classList.remove('was-validated');
     let delete_edit_record = document.getElementById('delete_edit_record');
@@ -260,7 +254,6 @@ const resetArea = () => {
     if(icon){
         icon.value = '';
     }
-
     let logo_files = document.getElementById('logo_files');
     if(logo_files){
         logo_files.innerHTML = '';
@@ -273,13 +266,10 @@ const resetArea = () => {
     if(logo){
         logo.value = '';
     }
-
-
     dispControl(0);
 }
-
 ////////////////////////////////////////////////
-//  radio checked for json
+//  radio checked (json)
 ////////////////////////////////////////////////
 const setDetailRadiobox = (key, json) => {
     [].slice.call(document.querySelectorAll(`input[name=${key}]`)).forEach( v => {
@@ -287,9 +277,8 @@ const setDetailRadiobox = (key, json) => {
         v.checked = v.value == json[key].value ? true:false;
     });
 }
-
 ////////////////////////////////////////////////
-//  checkbox checked for json
+//  checkbox checked (json)
 ////////////////////////////////////////////////
 const setDetailCheckbox = (key, json) => {
     let vals = json[key].value != null ? json[key].value.split(','):[];
@@ -301,9 +290,8 @@ const setDetailCheckbox = (key, json) => {
         });
     });
 }
-
 ////////////////////////////////////////////////
-//  input array for json
+//  input array (json)
 ////////////////////////////////////////////////
 const setDetailInputArray = (key, json) => {
     if(json[key].value){
@@ -313,9 +301,8 @@ const setDetailInputArray = (key, json) => {
         });
     }
 }
-
 ////////////////////////////////////////////////
-//  element add array for json
+//  element add array (json)
 ////////////////////////////////////////////////
 const setDetailAddArray = (key, json) => {
     let elm_t = json[key]['elm_t'].split(',');
@@ -357,7 +344,6 @@ const setDetailAddArray = (key, json) => {
                     Object.keys(set_op).forEach( o => {
                         if(set_op[o].value == elm_val[elm_g[i]][s - val_num]){
                             set_op[o].selected = true;
-                            //set_op[o].removeAttribute('disabled');
                         }
                     });
                 }
@@ -365,9 +351,8 @@ const setDetailAddArray = (key, json) => {
         }
     }
 }
-
 ////////////////////////////////////////////////
-//  input value set for json
+//  input value set (json)
 ////////////////////////////////////////////////
 const setDetailNameValueSet = (key, json) => {
     let elm = document.querySelector(`${json[key].type}[name=${key}]`);
@@ -378,10 +363,8 @@ const setDetailNameValueSet = (key, json) => {
         }
     }
 }
-
-
 ////////////////////////////////////////////////
-//  taget id set for json
+//  taget id set (json)
 ////////////////////////////////////////////////
 const setDetailIdValueSet = (key, json) => {
     let elm = document.querySelector(`#${key}`);
@@ -389,9 +372,8 @@ const setDetailIdValueSet = (key, json) => {
         elm.innerHTML = json[key].value;
     }
 }
-
 ////////////////////////////////////////////////
-//  taget base64 set for json
+//  taget base64 set (json)
 ////////////////////////////////////////////////
 const setDetailBase64Set = (key, json) => {
     let elm = document.querySelector(`#${key}`);
@@ -399,7 +381,6 @@ const setDetailBase64Set = (key, json) => {
         elm.setAttribute('src', json[key].value);
     }
 }
-
 ////////////////////////////////////////////////
 //  modal new clear
 ////////////////////////////////////////////////
@@ -433,7 +414,7 @@ const newCreateFixed = () => {
     });
 }
 ////////////////////////////////////////////////
-// SELECT 新規作成時だけには表示させない option 1 : data-disp=1だけを表示 0 : 解除
+// SELECT display options disp = 1 (show) disp = 0 (hide)
 ////////////////////////////////////////////////
 const dispControl = (disp=1) => {
     let cls = 'd-none';
@@ -445,12 +426,10 @@ const dispControl = (disp=1) => {
         });
     });
 }
-
 ////////////////////////////////////////////////
 //  file
 ////////////////////////////////////////////////
 const selectFile = (size) => {
-    //fileuplad
     [].slice.call(document.getElementsByClassName('fileuplad')).forEach( v => {
         v.onchange = e => {
             let area = document.getElementById(v.dataset.area);
@@ -479,10 +458,9 @@ const selectFile = (size) => {
     });
 }
 ////////////////////////////////////////////////
-//  image files set for json
+//  image files set (json)
 ////////////////////////////////////////////////
 const setDetailImage = (key, json, area) => {
-    //画像ファイルがあればimgタグ追加
     let names = json[key].value.split(',');
     names.forEach( val => {
         //col
@@ -510,7 +488,7 @@ const setDetailImage = (key, json, area) => {
         trash.setAttribute('data-col', json['col']);
         trash.setAttribute('data-type', 'images');
         trash.setAttribute('role', 'button');
-        //エレメントセット
+        //set element
         card_body.appendChild(trash);
         card.appendChild(card_body);
         area.appendChild(card);
