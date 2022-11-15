@@ -304,15 +304,15 @@ const createFormData = form_objs => {
 //  current page
 ////////////////////////////////////////////////
 const navCurrentLink = () => {
-    let id = document.querySelector('body[data-cat]').dataset.cat;
-    if (id) {
+    let elm = document.querySelector('body[data-cat]');
+    if (elm) {
         let nav_items = [].slice.call(document.querySelectorAll('.nav-item .dropdown-item'));
         let navs = [].slice.call(document.querySelectorAll('.nav-link'));
         nav_items.forEach(nav_item => {
             nav_item.classList.remove('active');
         });
         navs.forEach(nav => {
-            if (id == (nav.dataset.id)) {
+            if (elm.dataset.cat == (nav.dataset.id)) {
                 nav.parentNode.classList.add('active');
             }
         });
