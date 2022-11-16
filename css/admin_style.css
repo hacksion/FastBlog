@@ -488,6 +488,9 @@ nav .user img {
 }
 
 @media screen and (max-width: 576px) {
+  .signin {
+    background-color: white;
+  }
   .signin .signin_box {
     margin-top: 0;
   }
