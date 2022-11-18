@@ -350,5 +350,5 @@ try {
 
     echo '{"result":'.$result_number.',"msg":"'.$result.'"}';
 } catch (\PDOException $e) {
-    echo '{"result":0,"msg":"データベース設定ができません"}';
+    echo '{"result":0,"msg":"データベースが存在しないか<br>もしくはすでにテーブルが存在していますので<br>新しくデータベースを設定して<br>インストールしてください"}';
 }

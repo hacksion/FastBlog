@@ -15,7 +15,7 @@ require('./init/config.php');
     <script defer src="https://kit.fontawesome.com/79dd3834cf.js" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
-    <script defer src="<?php echo PUBLIC_URL['JS'];?>admin_function.js" data-asyncurl="<?php echo PUBLIC_URL['ASYNC'];?>" data-adminurl="<?php echo ADMIN_DIR;?>/" data-url="<?php echo PUBLIC_URL['URL'];?>"></script>
+    <script defer src="<?php echo PUBLIC_URL['JS'];?>function.js" data-asyncurl="<?php echo PUBLIC_URL['ASYNC'];?>" data-adminurl="<?php echo ADMIN_DIR;?>/" data-url="<?php echo PUBLIC_URL['URL'];?>"></script>
     <script defer src="<?php echo PUBLIC_URL['JS'];?>admin_install.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link href="<?php echo PUBLIC_URL['CSS'];?>admin_style.min.css" rel="stylesheet" type="text/css">

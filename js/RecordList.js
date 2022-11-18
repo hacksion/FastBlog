@@ -102,13 +102,13 @@ const RecordList = class {
                     e.target.classList.add('text-danger');
                     this.input_c_elm.value = e.target.dataset.column;
                     if(e.target.classList.contains('fa-sort-down')){
-                        //upに変更
+                        //change up
                         e.target.classList.remove('fa-sort-down');
                         e.target.classList.add('fa-sort-up');
                         this.input_s_elm.value = 'asc';
 
                     }else{
-                        //downに変更
+                        //change down
                         e.target.classList.remove('fa-sort-up');
                         e.target.classList.add('fa-sort-down');
                         this.input_s_elm.value = 'desc';

@@ -125,7 +125,7 @@ class Controller
             $this->setTpl('admin/'.$page.$sub);
             $admin_exclusion = [
                 'contact_form',
-                'table_of_contents'
+                'table_of_contents',
             ];
             $this->resourceReplace($this->replace['tpl'], $admin_exclusion); 
             

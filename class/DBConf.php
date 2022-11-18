@@ -32,7 +32,7 @@ abstract class DBConf
             $this->dbh->query('SET NAMES UTF8');
             $this->dbh->query('SET group_concat_max_len = 65535');
         } catch (\PDOException $e) {
-            throw new \Exception('DBERROR');
+            throw new \Exception($e->getMessage());
         }
     }
 

@@ -11,7 +11,7 @@ let dataImagesUrl = document.querySelector('script[data-imagesurl]') ? document.
 const swalOption = (icon, text) => {
     return {
         icon: icon,
-        text: text,
+        html: text,
         allowOutsideClick: false
     }
 }

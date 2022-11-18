@@ -22,6 +22,24 @@ class Model
         $this->replace['url'] = $this->replace['PUBLIC_URL']['URL'];
     }
 
+    private function deleteCallFunction($html)
+    {
+        $result = $html;
+        $del = [];
+        if($html){
+            preg_match_all('/\{.*?\}/u', $html, $matches);
+            if($matches[0]){
+                foreach($matches[0] as $m){
+                    $del[] = $m;
+                }
+            }
+            if($del){
+                $result = str_replace($del, '', $html);
+            }
+        }
+        return $result;
+    }
+
     private function resourceReplace($html)
     {
         if($html){
@@ -33,6 +51,15 @@ class Model
                     $val = explode(',', $val);
                     $this->replace['callFunction'][$val[0]] = $val[1] ?? '';
                 }
+            }
+        }
+    }
+
+    private function callFunction()
+    {
+        foreach($this->replace['callFunction'] as $function => $option){
+            if(method_exists(get_class(), $function)){
+                $this->replace[$function] = $this->$function($option);
             }
         }
     }
@@ -49,11 +76,7 @@ class Model
         }else{
             $this->publicHtml();
         }
-        foreach($this->replace['callFunction'] as $function => $option){
-            if(method_exists(get_class(), $function)){
-                $this->replace[$function] = $this->$function($option);
-            }
-        }
+        $this->callFunction();
     }
 
     private function tokenCheck($redirect = '') : void
@@ -218,7 +241,7 @@ class Model
             $sql = 'SELECT `withdrawal_modal`.`html` FROM `withdrawal_modal` WHERE id = ?';
             $result = $this->DB->query($sql, [$this->replace['site_id']]);
             if($result && $result[0]->html){
-                $this->replace['withdrawal_modal'] = $result[0]->html;
+                $this->replace['withdrawal_modal'] = $this->deleteCallFunction($result[0]->html);
             }
         }
     }
@@ -226,7 +249,10 @@ class Model
     private function side_nav($option = null)
     {
         $sidenav = $this->DB->query('SELECT `id`,`side_img`,`html`,`sidenav_status` FROM `sidenav` WHERE `id` = 1', []);
-        $this->replace['callFunction']['side_nav'] = $sidenav && $sidenav[0]->sidenav_status ? $sidenav[0]:'';
+        if($sidenav && $sidenav[0]->sidenav_status){
+            $sidenav[0]->html = $this->deleteCallFunction($sidenav[0]->html);
+            $this->replace['callFunction']['side_nav'] = $sidenav[0];
+        }
     }
 
     public function index()
@@ -683,7 +709,7 @@ class Model
 
     private function top10List()
     {
-        $accessTop = $this->DB->query('SELECT `id`,`title`,`access` FROM `content` WHERE `access` > 0 ORDER BY `access` DESC', []);
+        $accessTop = $this->DB->query('SELECT `id`,`title`,`access` FROM `content` WHERE `access` > 0 ORDER BY `access` DESC lIMIT 50', []);
         $result = '<ul class="top_number">';
         foreach($accessTop as $value){
             $link =  $this->replace['login']['auth'] != 2 ? '<a href="'.$this->replace['url'].ADMIN_DIR.'/content/edit/'.$value->id.'">'.strWidth($value->title, 50).'</a>':strWidth($value->title, 50);
