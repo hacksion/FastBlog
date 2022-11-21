@@ -22,7 +22,7 @@ class ListController
 
     public function admin()
     {
-        $method = $this->options['category_name'];
+        $method = $this->options['category_page'];
         $AdminListModel = new AdminListModel($this->options);
         (new AdminListView($AdminListModel->$method()))->$method();
     }

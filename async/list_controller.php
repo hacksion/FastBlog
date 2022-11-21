@@ -8,7 +8,6 @@ if(empty($category_name)){
 }
 $method = $page == 'public' ? 'lists':'admin';
 $ListController = new TM\ListController([
-    'category_name' => $category_name,
     'category_page' => $category_name,
     'form_name' => $category_name,
     'lang' => $_POST['lang'],
