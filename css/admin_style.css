@@ -387,6 +387,15 @@ nav .user img {
 .signin .input-group-text.eye .eye_toggle {
   cursor: pointer;
 }
+.signin .login_reload {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 999;
+}
 
 .card h3 {
   border-top-left-radius: 0.25rem;

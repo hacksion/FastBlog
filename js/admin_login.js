@@ -1,4 +1,19 @@
 document.addEventListener( "DOMContentLoaded", ()=> {
+    let timerId = setInterval(() => {
+        let xhr = XMLHttpRequestCreate();
+        xhr.open('GET', `${asyncUrl}session.php`, true);
+        xhr.send();
+        xhr.onload = () => {
+            if (xhr.status == 200) {
+                if (xhr.responseText == 0) {
+                    [].slice.call(document.getElementsByClassName('login_reload')).forEach(e => {
+                        e.classList.remove('d-none');
+                    });
+                    clearInterval(timerId);
+                }
+            }
+        }
+    }, 60000);
     let eye_toggle = document.querySelector('.eye_toggle');
     let input_passwd = document.querySelector('input[name=passwd]');
     if(eye_toggle && input_passwd){
