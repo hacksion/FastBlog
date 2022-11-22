@@ -1,6 +1,10 @@
 <?php 
 require('./init/resource.php');
 require('./init/config.php');
+if(file_exists(SERVER_DIR['INIT'].'db.php')){
+    echo 'This file does not have permissions.';
+    exit;
+}
 ?>
 <!doctype html>
 <html>
