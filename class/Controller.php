@@ -73,7 +73,7 @@ class Controller
             (new View($this->replace))->display();
         } catch (\Throwable $e) {
             header("HTTP/1.1 301 Moved Permanently");
-            header("Location:" . $this->replace['PUBLIC_URL']['URL'].'install');
+            header("Location:" . $this->replace['PUBLIC_URL']['URL'].'install.php');
             exit;
         }
     }
@@ -137,7 +137,7 @@ class Controller
             (new View($this->replace))->display();
         } catch (\Throwable $e) {
             header("HTTP/1.1 301 Moved Permanently");
-            header("Location:" . $this->replace['PUBLIC_URL']['URL'].'install');
+            header("Location:" . $this->replace['PUBLIC_URL']['URL'].'install.php');
             exit;
         }
     }
