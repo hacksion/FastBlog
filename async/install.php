@@ -343,8 +343,8 @@ try {
             'modified_id' => 1,
             'html' => NULL,
         ]);
-
-        unlink(dirname(__DIR__).'install.php');
+        //unlink(dirname(__DIR__).'/install.php');
+        $result = 'インストールは完了しました。<br>'.dirname(__DIR__).'/install.phpのファイルを削除してください。';
         $result_number = 1;
     }
 
