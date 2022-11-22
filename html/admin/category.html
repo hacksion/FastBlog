@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="{lang}"{html,admin}>
+    <head> {admin_head} </head>
+    <body data-cat="{category_page}" id="category_body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-2 py-2 sidenav">
+                {admin_nav}
+                {admin_footer}
+            </div>
+            <div class="col-12 col-lg-10 main_content min_height">
+                {admin_search_area}
+                <nav aria-label="Page navigation" class="list_nav"></nav>
+                <div class="table-responsive rounded mt-2">
+                    <table class="table table-sm table-striped text-nowrap table-hover">
+                        <thead class="">
+                            <tr>
+                                <th scope="col" class="text-nowrap">
+                                    
+                                </th>
+                                <th scope="col" class="text-nowrap"></th>
+                                <th scope="col" class="text-nowrap">カテゴリー名
+                                    <i class="fas fa-sort-down sort_btn" data-column="subject"></i>
+                                </th>
+                                <th scope="col" class="text-nowrap">ページ名
+                                    <i class="fas fa-sort-down sort_btn" data-column="page"></i>
+                                </th>
+                                <th scope="col" class="text-nowrap">HTML タイトル
+                                    <i class="fas fa-sort-down sort_btn" data-column="title"></i>
+                                </th>
+                                <th scope="col" class="text-nowrap">コンテンツ数</th>
+                                <th scope="col" class="text-nowrap">ナビゲーション</th>
+                            </tr>
+                        </thead>
+                        <tbody id="list_area" class="sort_area" data-table="category"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="edit_modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="d-flex justify-content-end p-2">
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <form name="edit_create">
+                        <div class="row mb-3">
+                            <div class="col-12 col-lg-6 mb-3">
+                                <label for="lbl_subject" class="">カテゴリー名 (30 文字まで)</label>
+                                <input type="text" class="form-control form-control-sm" name="subject" value="" id="lbl_subject" maxlength="30" required>
+                            </div>
+                            <div class="col-12 col-lg-6 mb-3">
+                                <label for="lbl_page" class="">ページ名 (半角英数字 100 文字まで)</label>
+                                <input type="text" class="form-control form-control-sm unslash" name="page" value="" id="lbl_page" maxlength="100" patturn="^[0-9A-Za-z]+$" required>
+                            </div>
+                            <div class="col-12 col-lg-6 mb-3">
+                                <label for="lbl_title" class="">HTML タイトル (100 文字まで)</label>
+                                <input type="text" class="form-control form-control-sm" name="title" value="" id="lbl_title" maxlength="100" required>
+                            </div>
+                            <div class="col-12 col-lg-6 mb-3">
+                                <label for="lbl_h1" class="">ページ見出し (100 文字まで)</label>
+                                <input type="text" class="form-control form-control-sm" name="h1" value="" id="lbl_h1" maxlength="100" required>
+                            </div>
+                            <div class="col-12 col-lg-6 mb-3">
+                                <label for="lbl_description" class="">HTML Description</label>
+                                <textarea name="description" class="form-control form-control-sm" id="lbl_description" required></textarea>
+                            </div>
+                            <div class="col-12 col-lg-6 mb-3">
+                                <label for="lbl_main_nav" class="form-label">グローバルメニュー</label>
+                                <div id="lbl_main_nav">
+                                    <div class="btn-group">
+                                        <input type="radio" class="btn-check" name="main_nav" id="main_nav_1" value="1" checked>
+                                        <label class="btn btn-sm btn-outline-secondary" for="main_nav_1">表示</label>
+                                        <input type="radio" class="btn-check" name="main_nav" id="main_nav_0" value="0">
+                                        <label class="btn btn-sm btn-outline-secondary" for="main_nav_0">非表示</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <input type="hidden" name="id" value="" id="edit_record_id">
+                                <input type="hidden" name="table" value="category">
+                                <button type="button" class="btn btn-sm btn-primary" id="edit_create">保存</button>
+                            </div>
+                            <button type="button" class="btn btn-sm btn-danger d-none" id="delete_edit_record" data-id="" data-table="category">削除</button>
+                            <span id="delete_not_record" class="d-none text-danger">関連するレコードがあるため削除ができません</span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

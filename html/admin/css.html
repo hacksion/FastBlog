@@ -1,0 +1,26 @@
+<html lang="{lang}"{html,admin}>
+    <head> {admin_head} </head>
+    <body data-cat="{category_page}" id="css_body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-2 py-2 sidenav">
+                {admin_nav}
+                {admin_footer}
+            </div>
+            <div class="col-12 col-lg-10 main_content min_height">
+                <form name="edit_file">
+                    <textarea class="form-control form-control-sm p-3 brb_0 syntax" name="file" style="height:90vh;">{form_custom_css}</textarea>
+                    <div class="d-flex justify-content-center mb-3 bg-border bt_0 p-2 rounded-bottom">
+                        <div>
+                            <input type="hidden" name="table" value="custom.css">
+                            <input type="hidden" name="type" value="CSS">
+                            <button type="button" class="btn btn-sm btn-primary" id="edit_file">保存</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<html lang="{lang}"{html,admin}>
+    <head> {admin_head} </head>
+    <body data-cat="{category_page}" id="sidenav_body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-2 py-2 sidenav">
+                {admin_nav}
+                {admin_footer}
+            </div>
+            <div class="col-12 col-lg-10 main_content min_height">
+                <form name="edit_create">
+
+                    <div class="row mb-3">
+
+                        <div class="col-12 col-lg-4">
+                            <div id="lbl_sidenav_status" class="mb-3">
+                                <div class="btn-group">
+                                    {form_sidenav_status}
+                                </div>
+                            </div>
+                            <label for="logo_upload" class="form-label">サイドナビ固定画像<br>
+                                <span class="text-danger">Size (W:600px H:600px) Limited To 512 KB</span>
+                            </label>
+                            <input type="file" name="side_img[]" class="form-control form-control-sm fileuplad" id="logo_upload" accept="image/*" data-area="logo_files">
+                            <div id="logo_files" class="mt-1"></div>
+                            <div id="logo_upload_area">{form_logo_upload_area}</div>
+                            <input type="hidden" name="side_img" value="{form_side_img}" id="side_img">
+                        </div>
+                        <div class="col-12 col-lg-8">
+                            <textarea class="form-control form-control-sm" name="html" contenteditable="true">{form_html}</textarea>
+                            <div class="d-flex justify-content-center mb-3 bg-border bt_0 p-2 rounded-bottom">
+                                <div>
+                                    <input type="hidden" name="table" value="sidenav">
+                                    <input type="hidden" name="id" value="{form_id}" id="edit_record_id">
+                                    <button type="button" class="btn btn-sm btn-primary" id="edit_create">保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

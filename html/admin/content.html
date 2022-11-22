@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="{lang}"{html,admin}>
+    <head> {admin_head} </head>
+    <body data-cat="{category_page}" id="content_body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-lg-2 py-2 sidenav"> {admin_nav} {admin_footer} </div>
+                <div class="col-12 col-lg-10 main_content min_height"> {admin_search_area} <nav aria-label="Page navigation"
+                        class="list_nav"></nav>
+                    <div class="table-responsive rounded mt-2">
+                        <table class="table table-sm table-striped text-nowrap table-hover">
+                            <thead class="">
+                                <tr>
+                                    <th scope="col"
+                                        class="text-nowrap"></th>
+                                    <th scope="col"
+                                        class="text-nowrap">見出し <i class="fas fa-sort-down sort_btn"
+                                            data-column="title"></i>
+                                    </th>
+                                    <th scope="col"
+                                        class="text-nowrap">ページ名 <i class="fas fa-sort-down sort_btn"
+                                            data-column="page"></i>
+                                    </th>
+                                    <th scope="col"
+                                        class="text-nowrap">カテゴリー名</th>
+                                    <th scope="col"
+                                        class="text-nowrap">出稿 <i class="fas fa-sort-down sort_btn"
+                                            data-column="release_date"></i>
+                                    </th>
+                                    <th scope="col"
+                                        class="text-nowrap">著者 <i class="fas fa-sort-down sort_btn"
+                                            data-column="author"></i>
+                                    </th>
+                                    <th scope="col"
+                                        class="text-nowrap">アクセス数 <i class="fas fa-sort-down sort_btn"
+                                            data-column="access"></i>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="list_area"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="{lang}"{html,admin}>
+    <head> {admin_head} </head>
+    <body data-cat="{category_page}" id="setting_body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-2 py-2 sidenav">
+                {admin_nav}
+                {admin_footer}
+            </div>
+            <div class="col-12 col-lg-10 main_content min_height">
+                <form name="edit_create">
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <div class="row">
+                                <div class="col-12 col-lg-4">
+                                    <label for="lbl_lang" class="form-label">言語選択</label>
+                                    <select name="lang" class="form-control form-control-sm mb-3" id='lbl_lang' required>
+                                        {form_option_lang}
+                                    </select>
+                                </div>
+                                <div class="col-12 col-lg-8">
+                                    <label for="lbl_site_name" class="form-label">サイト名</label>
+                                    <input type="text" name="site_name" value="{form_site_name}" class="form-control form-control-sm mb-3" id="lbl_site_name" required>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="lbl_index_title" class="form-label">ホームタイトル</label>
+                                    <input type="text" name="index_title" value="{form_index_title}" class="form-control form-control-sm mb-3" id="lbl_index_title" required>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="lbl_index_description" class="form-label">ホーム概要説明</label>
+                                    <input type="text" name="index_description" value="{form_index_description}" class="form-control form-control-sm mb-3" id="lbl_index_description" required>
+                                </div>
+                                
+                                <div class="col-12 col-lg-6">
+                                    <label for="logo_upload" class="form-label">ロゴ<br>
+                                        <span class="text-danger">Size (W:640px H:120px) Limited To 512 KB</span>
+                                    </label>
+                                    <input type="file" name="site_logo[]" class="form-control form-control-sm fileuplad" id="logo_upload" accept="image/*" data-area="logo_files" data-size="512000" data-width="200px">
+                                    <div id="logo_files" class="mt-1"></div>
+                                    <div class="mb-3" id="logo_upload_area">
+                                        {form_logo_upload_area}
+                                    </div>
+                                    <input type="hidden" name="site_logo" value="{form_site_logo}" id="site_logo">
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <label for="icon_upload" class="form-label">アイコン<br>
+                                        <span class="text-danger">Size (W:144px H:144px) Limited To 512 KB</span>
+                                    </label>
+                                    <input type="file" name="site_icon[]" class="form-control form-control-sm fileuplad" id="icon_upload" accept="image/*" data-area="icon_files" data-size="512000" data-width="200px">
+                                    <div id="icon_files" class="mt-1"></div>
+                                    <div class="mb-3" id="icon_upload_area">{form_icon_upload_area}</div>
+                                    <input type="hidden" name="site_icon" value="{form_site_icon}" id="site_icon">
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <label for="f_logo_upload" class="form-label">フッターロゴ<br>
+                                        <span class="text-danger">Size (W:640px H:120px) Limited To 512 KB</span>
+                                    </label>
+                                    <input type="file" name="site_f_logo[]" class="form-control form-control-sm fileuplad" id="f_logo_upload" accept="image/*" data-area="f_logo_files" data-size="512000" data-width="200px">
+                                    <div id="f_logo_files" class="mt-1"></div>
+                                    <div class="mb-3" id="f_logo_upload_area">{form_f_logo_upload_area}</div>
+                                    <input type="hidden" name="site_f_logo" value="{form_site_f_logo}" id="site_f_logo">
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <label for="f_image_upload" class="form-label">フッター背景画像<br>
+                                        <span class="text-danger">Limited To 512 KB</span>
+                                    </label>
+                                    <input type="file" name="f_image[]" class="form-control form-control-sm fileuplad" id="f_image_upload" accept="image/*" data-area="f_image_files" data-size="512000" data-width="100%">
+                                    <div id="f_image_files" class="mt-1"></div>
+                                    <div class="mb-3" id="f_image_upload_area">{f_image_upload_area}</div>
+                                    <input type="hidden" name="f_image" value="{form_f_image}" id="f_image">
+                                </div>
+                                <div class="col-12 col-lg-4">
+                                    <label for="lbl_bg_color" class="form-label">背景色</label>
+                                    <input type="color" name="bg_color" value="{form_bg_color}" class="form-control form-control-sm mb-3 pe-2" id="lbl_bg_color">
+                                </div>
+                                <div class="col-12 col-lg-4">
+                                    <label for="lbl_ft_color" class="form-label">フッターテキストカラー</label>
+                                    <input type="color" name="ft_color" value="{form_ft_color}" class="form-control form-control-sm mb-3 pe-2" id="lbl_ft_color">
+                                </div>
+                                <div class="col-12 col-lg-4">
+                                    <label for="lbl_f_color" class="form-label">フッター背景色</label>
+                                    <input type="color" name="f_color" value="{form_f_color}" class="form-control form-control-sm mb-3 pe-2" id="lbl_f_color">
+                                </div>
+                                <div class="col-12">
+                                    <label for="lbl_copyright_url" class="form-label">フッターコピーライトURL</label>
+                                    <input type="text" name="copyright_url" value="{form_copyright_url}" class="form-control form-control-sm mb-3" id="lbl_copyright_url">
+                                </div>
+                                <div class="col-12">
+                                    <label for="footer_text" class="form-label">フッターテキスト</label>
+                                    <textarea class="form-control form-control-sm mb-3" name="footer_text" id="footer_text" contenteditable="true">{form_footer_text}</textarea>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="row">
+                                <div class="col-12 col-lg-3">
+                                    <label for="lbl_noindex" class="form-label">検索エンジン</label>
+                                    <div id="lbl_noindex" class="mb-3">
+                                        <div class="btn-group">
+                                            {form_noindex}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-3">
+                                    <label for="lbl_index_count" class="form-label">おすすめ表示数</label>
+                                    <input type="text" name="index_count" value="{form_index_count}" class="form-control form-control-sm i_numbers mb-3" id="lbl_index_count" style="width:100px;">
+                                </div>
+                                <div class="col-12 col-lg-3">
+                                    <label for="lbl_contact" class="form-label">お問合せフォーム</label>
+                                    <div id="lbl_contact" class="mb-3">
+                                        <div class="btn-group">
+                                            {form_contact}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-3">
+                                    <label for="lbl_withdrawal_modal" class="form-label">離脱モーダル</label>
+                                    <div id="lbl_withdrawal_modal" class="mb-3">
+                                        <div class="btn-group">
+                                            {form_withdrawal_modal}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <label for="lbl_google_tag" class="form-label">Google Analytics Tag</label>
+                                    <textarea class="form-control form-control-sm mb-3" name="google_tag" id="lbl_google_tag">{form_google_tag}</textarea>
+                                </div>
+                                <div class="col-12">
+                                    <label for="lbl_google_tag_no" class="form-label">Google Analytics noscript</label>
+                                    <textarea class="form-control form-control-sm mb-3" name="google_tag_no" id="lbl_google_tag_no">{form_google_tag_no}</textarea>
+                                </div>
+                                <div class="col-12">
+                                    <label for="lbl_facebook" class="form-label">Facebook URL</label>
+                                    <input type="text" name="facebook" value="{form_facebook}" class="form-control form-control-sm mb-3" id="lbl_facebook">
+                                </div>
+                                <div class="col-12">
+                                    <label for="lbl_instagram" class="form-label">Instagram URL</label>
+                                    <input type="text" name="instagram" value="{form_instagram}" class="form-control form-control-sm mb-3" id="lbl_instagram">
+                                </div>
+                                <div class="col-12">
+                                    <label for="lbl_linkedin" class="form-label">Linkedin URL</label>
+                                    <input type="text" name="linkedin" value="{form_linkedin}" class="form-control form-control-sm mb-3" id="lbl_linkedin">
+                                </div>
+                                <div class="col-12">
+                                    <label for="lbl_twitter" class="form-label">Twitter URL</label>
+                                    <input type="text" name="twitter" value="{form_twitter}" class="form-control form-control-sm mb-3" id="lbl_twitter">
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-center mt-3 bg-border p-2 rounded">
+                                <div>
+                                    <input type="hidden" name="table" value="setting">
+                                    <input type="hidden" name="id" value="{form_id}" id="edit_record_id">
+                                    <button type="button" class="btn btn-sm btn-primary" id="edit_create">保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
