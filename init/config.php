@@ -32,7 +32,9 @@ define('SERVER_DIR', [
     'JS' => PRIVATE_DIR.'js/',
 ]);
 /***************** database ********************/
-require('db.php');
+if(file_exists(SERVER_DIR['INIT'].'db.php')){
+    require('db.php');
+}
 /***************** functions ********************/
 require('functions.php');
 /***************** composer autoload ********************/
