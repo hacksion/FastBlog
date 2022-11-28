@@ -76,7 +76,7 @@ const repFullToHalfAlphNumeric = value => {
 const unslash = () => {
     [].slice.call(document.getElementsByClassName('unslash')).forEach( v => {
         v.onblur = e => {
-            let rep = e.target.value.replace(/\//g, '');
+            let rep = e.target.value.replace(/\//g, '').replace(/ /g, '');
             if(rep == 'api'){
                 rep = '';
             }else if(rep == adminUrl.replace(/\//g, '')){
