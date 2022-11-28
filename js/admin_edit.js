@@ -472,7 +472,7 @@ const setDetailImage = (key, json, area) => {
         card.setAttribute('data-table', json['table_name']);
         //img
         let img = document.createElement('img');
-        img.setAttribute('src', `${imagesurl}${json['table_name']}/${json['id'].value}/${val}`);
+        img.setAttribute('src', `${dataImagesUrl}${json['table_name']}/${json['id'].value}/${val}`);
         img.setAttribute('class', 'w100');
         img.setAttribute('style', 'background-color:white');
         card.appendChild(img);
