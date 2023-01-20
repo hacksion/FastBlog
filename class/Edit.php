@@ -105,42 +105,45 @@ class Edit
                     );
                     $file_name = $new_name.'.'.$ret[2];
                     $ori_file = SERVER_DIR['IMG'].$this->result['table'].'/' . $this->result['id_num'] . '/' .$file_name;
-                    $Imagick = new \Imagick();
-                    $Imagick->readImage($ori_file);
-                    $format = strtolower($Imagick->getImageFormat());
-                    if($format == 'jpeg'){
-                        $exif_data = @exif_read_data($ori_file);
-                        if(isset($exif_data['Orientation'])){
-                            imageOrientation($ori_file, $exif_data['Orientation']);
+                    if (extension_loaded('imagick')){
+                        $Imagick = new \Imagick();
+                        $Imagick->readImage($ori_file);
+                        $format = strtolower($Imagick->getImageFormat());
+                        if($format == 'jpeg'){
+                            $exif_data = @exif_read_data($ori_file);
+                            if(isset($exif_data['Orientation'])){
+                                imageOrientation($ori_file, $exif_data['Orientation']);
+                            }
+                        }
+                        if($new_name != 'site_logo' && $new_name != 'site_f_logo' && $new_name != 'f_image' && $new_name != 'side_img' && $new_name != 'banner'){
+                            $Imagick = new \Imagick($ori_file);
+                            if($new_name == 'site_icon' || $new_name == 'icon'){
+                                $width = 144;
+                                $height = 144;
+                            }elseif($new_name == 'thumbnail'){
+                                $width = 300;
+                                $height = 300;
+                            }
+                            $width_org = $Imagick->getImageWidth();
+                            $height_org = $Imagick->getImageHeight();
+                            $ratio = $width_org / $height_org;
+                            if ($width / $height > $ratio) {
+                                $width = $height * $ratio;
+                            } else {
+                                $height = $width / $ratio;
+                            }
+                            $Imagick->scaleImage($width, $height);
+                            $Imagick->setCompressionQuality(80);
+                            if($new_name == 'thumbnail'){
+                                $thumb_s = 's_'.$new_name.'.'.$ret[2];
+                                $Imagick->writeImage(SERVER_DIR['IMG'].$this->result['table'].'/' . $this->result['id_num'].'/'.$thumb_s);
+                            }else{
+                                $Imagick->writeImage($ori_file);
+                            }
+                            $Imagick->destroy();
                         }
                     }
-                    if($new_name != 'site_logo' && $new_name != 'site_f_logo' && $new_name != 'f_image' && $new_name != 'side_img' && $new_name != 'banner'){
-                        $Imagick = new \Imagick($ori_file);
-                        if($new_name == 'site_icon' || $new_name == 'icon'){
-                            $width = 144;
-                            $height = 144;
-                        }elseif($new_name == 'thumbnail'){
-                            $width = 300;
-                            $height = 300;
-                        }
-                        $width_org = $Imagick->getImageWidth();
-                        $height_org = $Imagick->getImageHeight();
-                        $ratio = $width_org / $height_org;
-                        if ($width / $height > $ratio) {
-                            $width = $height * $ratio;
-                        } else {
-                            $height = $width / $ratio;
-                        }
-                        $Imagick->scaleImage($width, $height);
-                        $Imagick->setCompressionQuality(80);
-                        if($new_name == 'thumbnail'){
-                            $thumb_s = 's_'.$new_name.'.'.$ret[2];
-                            $Imagick->writeImage(SERVER_DIR['IMG'].$this->result['table'].'/' . $this->result['id_num'].'/'.$thumb_s);
-                        }else{
-                            $Imagick->writeImage($ori_file);
-                        }
-                        $Imagick->destroy();
-                    }
+                    
                     $this->DB->update($this->result['table'], ['id' => $this->result['id_num']], [ $f_key => $file_name ]);
                     $this->result['result'] = 1;
                 }
