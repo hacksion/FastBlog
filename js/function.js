@@ -258,8 +258,8 @@ const asyncPost = (url, form_obj, reload = null, callback = null) => {
     xhr.send(form_obj);
     xhr.onload = () => {
         try{
-            if(xhr.status == 200){
-
+            if (xhr.status == 200) {
+                
                 result = JSON.parse(xhr.responseText.replace(/(\n)/g, "\\n"));
                 if (reload == 1) {
                     location.reload();

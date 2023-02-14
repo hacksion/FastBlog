@@ -1,4 +1,5 @@
 <?php
+require('../../../init/public.php');
 require('../../../init/config.php');
 /** This file is part of KCFinder project
   *
@@ -18,7 +19,7 @@ require('../../../init/config.php');
 return array(
 // GENERAL SETTINGS
     'disabled' => isset($_SESSION[KEY_NAME['SESSION']]) ? false:true,
-    'uploadURL' => URL . "images/upload",
+    'uploadURL' => PUBLIC_URL['URL'] . "images/upload",
     'theme' => "default",
     'uploadDir' => PRIVATE_DIR . "images/upload",
 

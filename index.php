@@ -1,6 +1,9 @@
 <?php
-require('./init/resource.php');
 require('./init/config.php');
+require('./init/public.php');
+if(empty(PUBLIC_URL['URL'])){
+    require('./init/resource.php');
+}
 $resource = [
     'PUBLIC_URL' => PUBLIC_URL,
     'method' => 'index',
