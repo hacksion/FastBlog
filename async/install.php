@@ -33,7 +33,7 @@ try {
             DEFAULT CHARSET=utf8mb4");
 
         $dbh->query("CREATE TABLE `account` (
-            `id` int(11) NOT NULL,
+            `id` int(11) NOT NULL AUTO_INCREMENT,
             `created` datetime NOT NULL,
             `modified` datetime NOT NULL,
             `created_id` int(11) NOT NULL DEFAULT '1',
@@ -47,7 +47,7 @@ try {
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
         
         $dbh->query("CREATE TABLE `category` (
-            `id` int(11) NOT NULL,
+            `id` int(11) NOT NULL AUTO_INCREMENT,
             `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `article_modified` datetime DEFAULT NULL,
@@ -63,7 +63,7 @@ try {
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
 
         $dbh->query("CREATE TABLE `content` (
-            `id` int(11) NOT NULL,
+            `id` int(11) NOT NULL AUTO_INCREMENT,
             `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `created_id` int(11) NOT NULL DEFAULT '1' COMMENT '登録者ID',
@@ -85,7 +85,7 @@ try {
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
 
         $dbh->query("CREATE TABLE `dictionary` (
-            `id` int(11) NOT NULL,
+            `id` int(11) NOT NULL AUTO_INCREMENT,
             `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `created_id` int(11) NOT NULL DEFAULT '1',
@@ -95,7 +95,7 @@ try {
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
         
         $dbh->query("CREATE TABLE `setting` (
-            `id` int(11) NOT NULL,
+            `id` int(11) NOT NULL AUTO_INCREMENT,
             `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `created_id` int(11) NOT NULL DEFAULT '1',
@@ -127,7 +127,7 @@ try {
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
         
         $dbh->query("CREATE TABLE `sidenav` (
-            `id` int(11) NOT NULL,
+            `id` int(11) NOT NULL AUTO_INCREMENT,
             `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `created_id` int(11) NOT NULL DEFAULT '1' COMMENT '登録者ID',
@@ -138,7 +138,7 @@ try {
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
         
         $dbh->query("CREATE TABLE `smtp` (
-            `id` int(11) NOT NULL,
+            `id` int(11) NOT NULL AUTO_INCREMENT,
             `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `created_id` int(11) NOT NULL DEFAULT '1',
@@ -156,7 +156,7 @@ try {
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
         
         $dbh->query("CREATE TABLE `withdrawal_modal` (
-            `id` int(11) NOT NULL,
+            `id` int(11) NOT NULL AUTO_INCREMENT,
             `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `created_id` int(11) NOT NULL DEFAULT '1',
