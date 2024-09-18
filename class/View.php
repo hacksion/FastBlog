@@ -480,8 +480,12 @@ class View
     {
         $result = '';
         if($options){
-            $result = $options->side_img ? '<img src="'.$this->replace['PUBLIC_URL']['IMG'].'sidenav/'.$options->id.'/'.$options->side_img.'">':'';
-            $result .= $options->html ? $options->html:'';
+            if($options->side_img){
+                $result .= '<img src="'.$this->replace['PUBLIC_URL']['IMG'].'sidenav/'.$options->id.'/'.$options->side_img.'">';
+            }
+            if($options->html){
+                $result .= $options->html;
+            }
         }
         return $result;
     }
@@ -499,10 +503,8 @@ class View
         foreach($record as $list){
             $col_3 = '';
             if($list->thumbnail){
-                $col_3 = '<div class="col-3"><div class="thumb" style="background-image:url('.$this->replace['PUBLIC_URL']['IMG'].'content/'.$list->id.'/s_'.$list->thumbnail.')"></div></div>':'';
+                $col_3 .= '<div class="col-3"><div class="thumb" style="background-image:url('.$this->replace['PUBLIC_URL']['IMG'].'content/'.$list->id.'/s_'.$list->thumbnail.')"></div></div>':'';
             }
-            //$thumb = $list->thumbnail ? '<div class="thumb" style="background-image:url('.$this->replace['PUBLIC_URL']['IMG'].'content/'.$list->id.'/s_'.$list->thumbnail.')"></div>':'';
-            //$col_3 = $thumb ? '<div class="col-3">'.$thumb.'</div>':'';
             $result .= '
             <div class="row mb-4">
                 '.$col_3.'
