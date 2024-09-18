@@ -497,12 +497,16 @@ class View
     {
         $result = '';
         foreach($record as $list){
-            $thumb = $list->thumbnail ? '<div class="thumb" style="background-image:url('.$this->replace['PUBLIC_URL']['IMG'].'content/'.$list->id.'/s_'.$list->thumbnail.')"></div>':'';
-            $col_3 = $thumb ? '<div class="col-3">'.$thumb.'</div>':'';
+            $col_3 = '';
+            if($list->thumbnail){
+                $col_3 = '<div class="col-3"><div class="thumb" style="background-image:url('.$this->replace['PUBLIC_URL']['IMG'].'content/'.$list->id.'/s_'.$list->thumbnail.')"></div></div>':'';
+            }
+            //$thumb = $list->thumbnail ? '<div class="thumb" style="background-image:url('.$this->replace['PUBLIC_URL']['IMG'].'content/'.$list->id.'/s_'.$list->thumbnail.')"></div>':'';
+            //$col_3 = $thumb ? '<div class="col-3">'.$thumb.'</div>':'';
             $result .= '
             <div class="row mb-4">
                 '.$col_3.'
-                <div class="col-'.($thumb ? 9:12).'">
+                <div class="col-'.($col_3 ? 9:12).'">
                     <h3><a href="'.$this->replace['url'].$list->category_page.'/'.$list->page.'">'.strWidth($list->title, 100).'</a></h3>
                 </div>
             </div>
