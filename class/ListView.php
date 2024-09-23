@@ -10,6 +10,7 @@ class ListView
     private $date_format;
     private $category_id;
     private $url;
+    private $imagesurl;
 
     public function __construct($options = [])
     {
