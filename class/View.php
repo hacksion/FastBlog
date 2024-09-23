@@ -284,7 +284,7 @@ class View
                 <div class="row g-md-5">
                     <div class="col-12 col-lg-6" style="border-right: 1px solid rgba('.implode(',', $this->replace['ft_color_rgb']).',.3);">
                         '.($this->replace['f_logo'] ? '<img src="'.$this->replace['f_logo'].'" class="logo">':'').'
-                        <p>'.nl2br($this->replace['footer_text']).'</p>
+                        <p>'.($this->replace['footer_text'] ? nl2br($this->replace['footer_text']):'').'</p>
                         <ul class="sns">
                         '.($this->replace['facebook'] ? '<li class="list-inline-item"><a href="'.$this->replace['facebook'].'" title="Facebook" class="social_item" target="_blank"><img src="'.$this->replace['url'].'images/facebook.png" alt="facebook"></a></li>':'').'
                         '.($this->replace['instagram'] ? '<li class="list-inline-item"><a href="'.$this->replace['instagram'].'" title="Instagram" class="social_item" target="_blank"><img src="'.$this->replace['url'].'images/instagram.png" alt="instagram"></a></li>':'').'
